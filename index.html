@@ -404,25 +404,24 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
 
-        .program-images {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
+        .program-image {
             margin-bottom: 1.5rem;
             border-radius: 4px;
             overflow: hidden;
+            border: 2px solid var(--gray-dark);
         }
 
-        .program-images img {
+        .program-image img {
             width: 100%;
-            height: 120px;
+            height: 160px;
             object-fit: cover;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, filter 0.3s ease;
             filter: grayscale(20%) contrast(1.1);
+            display: block;
         }
 
-        .program-images img:hover {
-            transform: scale(1.05);
+        .program-card:hover .program-image img {
+            transform: scale(1.03);
             filter: grayscale(0%) contrast(1);
         }
 
@@ -825,9 +824,8 @@
                 <div class="program-card animate-on-scroll">
                     <div class="program-icon">💪</div>
                     <h3>Women's Wednesday Class</h3>
-                    <div class="program-images">
-                        <img src="women-class-1.jpg" alt="Women's Boxing Class - Group Photo 1" loading="lazy">
-                        <img src="women-class-2.jpg" alt="Women's Boxing Class - Group Photo 2" loading="lazy">
+                    <div class="program-image">
+                        <img src="women-class-1.jpg" alt="Women's Boxing Class - Group Photo" loading="lazy">
                     </div>
                     <ul class="program-details">
                         <li><strong>When:</strong> Every Wednesday 7:00pm</li>
@@ -840,6 +838,9 @@
                 <div class="program-card animate-on-scroll">
                     <div class="program-icon">🥊</div>
                     <h3>Women's Sunday Class</h3>
+                    <div class="program-image">
+                        <img src="women-class-2.jpg" alt="Women's Boxing Class - Group Photo" loading="lazy">
+                    </div>
                     <ul class="program-details">
                         <li><strong>When:</strong> Every Sunday 2:00pm</li>
                         <li><strong>Where:</strong> 100 E Johnson St, Philadelphia PA 19144</li>
