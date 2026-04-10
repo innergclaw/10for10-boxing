@@ -404,6 +404,28 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
 
+        .program-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .program-images img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            filter: grayscale(20%) contrast(1.1);
+        }
+
+        .program-images img:hover {
+            transform: scale(1.05);
+            filter: grayscale(0%) contrast(1);
+        }
+
         .program-card.featured {
             border: 2px solid var(--gold);
             background: linear-gradient(135deg, var(--black-lighter) 0%, rgba(212, 175, 55, 0.1) 100%);
@@ -803,6 +825,10 @@
                 <div class="program-card animate-on-scroll">
                     <div class="program-icon">💪</div>
                     <h3>Women's Wednesday Class</h3>
+                    <div class="program-images">
+                        <img src="women-class-1.jpg" alt="Women's Boxing Class - Group Photo 1" loading="lazy">
+                        <img src="women-class-2.jpg" alt="Women's Boxing Class - Group Photo 2" loading="lazy">
+                    </div>
                     <ul class="program-details">
                         <li><strong>When:</strong> Every Wednesday 7:00pm</li>
                         <li><strong>Where:</strong> 100 E Johnson St, Philadelphia PA 19144</li>
