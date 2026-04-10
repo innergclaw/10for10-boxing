@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10 for 10 Boxing | Philadelphia Boxing Gym</title>
+    <meta name="description" content="Real Boxing. Real Results. Train with Coach Ken at 10 for 10 Boxing in Philadelphia. Women's classes and Kids Boxing Camp available.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #000;
+            --black-light: #111;
+            --black-lighter: #1a1a1a;
+            --red: #e31937;
+            --red-bright: #ff1a1a;
+            --gold: #d4af37;
+            --gold-light: #f4d03f;
+            --white: #fff;
+            --gray: #888;
+            --gray-dark: #333;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Grunge Texture Overlay */
+        .grunge-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .grunge-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+            opacity: 0.6;
+            mix-blend-mode: overlay;
+        }
+
+        .concrete-texture {
+            background-image:
+                url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)' opacity='0.06'/%3E%3C/svg%3E");
+        }
+
+        .scratch-overlay {
+            position: relative;
+        }
+        .scratch-overlay::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                repeating-linear-gradient(
+                    87deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255,255,255,0.01) 2px,
+                    rgba(255,255,255,0.01) 3px
+                ),
+                repeating-linear-gradient(
+                    175deg,
+                    transparent,
+                    transparent 3px,
+                    rgba(0,0,0,0.03) 3px,
+                    rgba(0,0,0,0.03) 4px
+                );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Cracked border effect */
+        .cracked-border {
+            position: relative;
+            border: none !important;
+        }
+        .cracked-border::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 2px solid transparent;
+            border-image: url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 20 L10 15 L20 22 L30 10 L40 18' stroke='%23333' fill='none' stroke-width='1.5'/%3E%3C/svg%3E") 10 round;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(227, 25, 55, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(227, 25, 55, 0.6); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 16px 40px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--red);
+            color: var(--white);
+            border: 2px solid var(--red);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--red-bright);
+            border-color: var(--red-bright);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(227, 25, 55, 0.4);
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+            background-size: 200% auto;
+            color: var(--black);
+            border: 2px solid var(--gold);
+            animation: shimmer 3s linear infinite;
+        }
+
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background:
+                linear-gradient(135deg, var(--black) 0%, #0d0d0d 30%, var(--black-light) 60%, #121212 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 20% 80%, rgba(227, 25, 55, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(227, 25, 55, 0.1) 0%, transparent 50%),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.1'/%3E%3C/svg%3E");
+            pointer-events: none;
+            mix-blend-mode: normal;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 50px,
+                    rgba(227, 25, 55, 0.03) 50px,
+                    rgba(227, 25, 55, 0.03) 51px
+                ),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 50px,
+                    rgba(255,255,255,0.01) 50px,
+                    rgba(255,255,255,0.01) 51px
+                ),
+                linear-gradient(180deg, rgba(0,0,0,0.3) 0%, transparent 20%, transparent 80%, rgba(0,0,0,0.5) 100%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            animation: fadeInUp 1s ease;
+        }
+
+        .gloves-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            animation: bounce 2s ease infinite;
+            filter: drop-shadow(0 0 20px rgba(227, 25, 55, 0.5));
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(227, 25, 55, 0.2);
+            border: 1px solid var(--red);
+            color: var(--red);
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 0 var(--red), 4px 4px 20px rgba(0,0,0,0.5), 0 0 80px rgba(227, 25, 55, 0.15);
+            position: relative;
+        }
+        .hero h1::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 5%;
+            right: 5%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--red), transparent);
+            opacity: 0.6;
+        }
+
+        .hero h1 span {
+            color: var(--red);
+        }
+
+        .tagline {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--gray);
+            font-weight: 400;
+            margin-bottom: 2.5rem;
+            letter-spacing: 0.1em;
+        }
+
+        .hero-location {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 1.5rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--red);
+        }
+
+        /* Programs Section */
+        .programs {
+            background: var(--black-light);
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .programs-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .program-card {
+            background: 
+                linear-gradient(135deg, var(--black-lighter) 0%, #141414 100%);
+            border: 1px solid var(--gray-dark);
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .program-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.05'/%3E%3C/svg%3E");
+            pointer-events: none;
+            mix-blend-mode: overlay;
+        }
+
+        .program-card:hover {
+            border-color: var(--red);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .program-card.featured {
+            border: 2px solid var(--gold);
+            background: linear-gradient(135deg, var(--black-lighter) 0%, rgba(212, 175, 55, 0.1) 100%);
+            animation: glow 2s ease infinite;
+        }
+
+        .program-card.featured::before {
+            content: 'FEATURED';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gold);
+            color: var(--black);
+            padding: 4px 16px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+        }
+
+        .program-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .program-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .program-card.featured h3 {
+            color: var(--gold);
+        }
+
+        .program-details {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .program-details li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--gray-dark);
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        .program-details li:last-child {
+            border-bottom: none;
+        }
+
+        .program-details li strong {
+            color: var(--white);
+        }
+
+        .price-tag {
+            display: inline-block;
+            background: var(--red);
+            color: var(--white);
+            padding: 8px 16px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .urgency-banner {
+            background: linear-gradient(90deg, var(--red) 0%, var(--red-bright) 100%);
+            color: var(--white);
+            padding: 12px;
+            text-align: center;
+            margin: -2rem -2rem 1.5rem -2rem;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            animation: pulse 2s ease infinite;
+        }
+
+        .slots-counter {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        /* About Section */
+        .about {
+            background:
+                linear-gradient(180deg, #0a0a0a 0%, var(--black) 20%, #0d0d0d 80%, var(--black) 100%);
+            position: relative;
+        }
+        .about .container {
+            position: relative;
+            z-index: 1;
+        }
+        .about::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--red), transparent);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        @media (min-width: 768px) {
+            .about-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .about-text h2 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text h2 span {
+            color: var(--red);
+        }
+
+        .about-text p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+        }
+
+        .coach-highlight {
+            background: var(--black-light);
+            border-left: 4px solid var(--red);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .coach-highlight h4 {
+            color: var(--gold);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .specialties {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .specialty-tag {
+            background: var(--black-lighter);
+            border: 1px solid var(--gray-dark);
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            color: var(--white);
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            position: relative;
+        }
+        .specialty-tag::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 40%, rgba(227,25,55,0.1) 100%);
+            pointer-events: none;
+        }
+
+        .about-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .boxing-ring {
+            width: 280px;
+            height: 280px;
+            border: 8px solid var(--gray-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background:
+                radial-gradient(circle, var(--black-lighter) 0%, #0a0a0a 50%, var(--black) 100%);
+            box-shadow: inset 0 0 60px rgba(0,0,0,0.5), 0 0 40px rgba(227,25,55,0.1);
+        }
+
+        .boxing-ring::before {
+            content: '🥊';
+            font-size: 6rem;
+            filter: drop-shadow(0 0 30px rgba(227, 25, 55, 0.5));
+        }
+
+        .boxing-ring::after {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            border: 2px solid var(--red);
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, var(--black-light) 0%, var(--black-lighter) 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 50%, rgba(227, 25, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta h2 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            margin-bottom: 1rem;
+        }
+
+        .cta h2 span {
+            color: var(--red);
+        }
+
+        .cta-subtitle {
+            font-size: 1.25rem;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .cta-urgent {
+            background: var(--red);
+            color: var(--white);
+            padding: 1rem 2rem;
+            display: inline-block;
+            margin: 1.5rem 0;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            animation: pulse 2s ease infinite;
+        }
+
+        .cta .btn {
+            font-size: 1.25rem;
+            padding: 20px 50px;
+            margin: 1.5rem 0;
+        }
+
+        .contact-options {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--gray-dark);
+        }
+
+        .contact-options p {
+            color: var(--gray);
+            margin-bottom: 0.75rem;
+        }
+
+        .instagram-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gold);
+            text-decoration: none;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .instagram-link:hover {
+            color: var(--gold-light);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            border-top: 1px solid var(--gray-dark);
+            padding: 3rem 1.5rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo span {
+            color: var(--red);
+        }
+
+        .footer-address {
+            color: var(--gray);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-social {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social a {
+            color: var(--white);
+            text-decoration: none;
+            font-family: 'Oswald', sans-serif;
+            transition: color 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            color: var(--red);
+        }
+
+        .copyright {
+            color: var(--gray-dark);
+            font-size: 0.85rem;
+        }
+
+        /* Red accent lines */
+        .accent-line {
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--red), transparent);
+            margin: 0 auto;
+            max-width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="gloves-icon">🥊</div>
+            <div class="hero-badge">Philadelphia Boxing Gym</div>
+            <h1>10 <span>FOR</span> 10 <span>BOXING</span></h1>
+            <p class="tagline">Real Boxing. Real Results.</p>
+            <div class="hero-location">
+                <span>📍</span>
+                <span>100 E Johnson St, Philadelphia PA 19144</span>
+            </div>
+            <a href="#register" class="btn btn-primary">Register Now</a>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section class="programs" id="programs">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <h2>Our Programs</h2>
+                <div class="accent-line"></div>
+            </div>
+            <div class="programs-grid">
+                <!-- Women's Wednesday Class -->
+                <div class="program-card animate-on-scroll">
+                    <div class="program-icon">💪</div>
+                    <h3>Women's Wednesday Class</h3>
+                    <ul class="program-details">
+                        <li><strong>When:</strong> Every Wednesday 7:00pm</li>
+                        <li><strong>Where:</strong> 100 E Johnson St, Philadelphia PA 19144</li>
+                        <li><strong>Level:</strong> All levels welcome</li>
+                    </ul>
+                </div>
+
+                <!-- Women's Sunday Class -->
+                <div class="program-card animate-on-scroll">
+                    <div class="program-icon">🥊</div>
+                    <h3>Women's Sunday Class</h3>
+                    <ul class="program-details">
+                        <li><strong>When:</strong> Every Sunday 2:00pm</li>
+                        <li><strong>Where:</strong> 100 E Johnson St, Philadelphia PA 19144</li>
+                        <li><strong>Level:</strong> All levels welcome</li>
+                    </ul>
+                </div>
+
+                <!-- Kids Boxing Camp - FEATURED -->
+                <div class="program-card featured animate-on-scroll">
+                    <div class="urgency-banner">⚡ Limited Time Offer ⚡</div>
+                    <div class="program-icon">🌟</div>
+                    <div class="price-tag">$10 for 10 Sessions</div>
+                    <h3>Kids Boxing Camp</h3>
+                    <ul class="program-details">
+                        <li><strong>Schedule:</strong> Every Sunday for 6 weeks</li>
+                        <li><strong>Time:</strong> 11:15am - 12:15pm</li>
+                        <li><strong>Ages:</strong> 6-16 years old</li>
+                        <li><strong>Start Date:</strong> May 3rd</li>
+                    </ul>
+                    <div style="text-align: center; margin-top: 1rem;">
+                        <div class="slots-counter">20</div>
+                        <div style="color: var(--gray); font-size: 0.9rem;">Slots Available</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text animate-on-scroll">
+                    <h2>Train With <span>Coach Ken</span></h2>
+                    <p>Personal Coach dedicated to bringing out the fighter in you. Whether you're stepping into the ring for the first time or preparing for competition, Coach Ken meets you where you are.</p>
+                    
+                    <div class="coach-highlight">
+                        <h4>🎯 What We Offer</h4>
+                        <p style="margin: 0; color: var(--white);">Amateur fighters competing at local and regional levels, specialized training for women, and effective weight loss programs built on real boxing fundamentals.</p>
+                    </div>
+
+                    <p>At 10 for 10 Boxing, we're building more than athletes — we're building a community. All levels welcome. No egos, just hard work.</p>
+
+                    <div class="specialties">
+                        <span class="specialty-tag">Fighters</span>
+                        <span class="specialty-tag">Women</span>
+                        <span class="specialty-tag">Weight Loss</span>
+                        <span class="specialty-tag">Amateur Competition</span>
+                    </div>
+                </div>
+                <div class="about-visual animate-on-scroll">
+                    <div class="boxing-ring"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA / Register Section -->
+    <section class="cta" id="register">
+        <div class="container">
+            <div class="cta-content animate-on-scroll">
+                <h2><span>Register</span> Now</h2>
+                <p class="cta-subtitle">Kids Boxing Camp Enrollment Open</p>
+                <div class="cta-urgent">🚨 Start Date: May 3rd — Limited Spots Available! 🚨</div>
+                <a href="https://instagram.com/10for10boxing" target="_blank" class="btn btn-gold">Register Now</a>
+                
+                <div class="contact-options">
+                    <p>To register, DM <strong>"BOX"</strong> on Instagram</p>
+                    <p>or visit us at the gym</p>
+                    <a href="https://instagram.com/10for10boxing" target="_blank" class="instagram-link">
+                        <span>📸</span>
+                        <span>@10for10boxing</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">10 <span>FOR</span> 10 <span>BOXING</span></div>
+            <p class="footer-address">100 E Johnson St, Philadelphia PA 19144</p>
+            <div class="footer-social">
+                <a href="https://instagram.com/10for10boxing" target="_blank">@10for10boxing</a>
+            </div>
+            <p class="copyright">© 2026 10 for 10 Boxing. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll animation observer
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
