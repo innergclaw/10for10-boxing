@@ -595,69 +595,6 @@
       box-shadow: 3px 3px 0 var(--line);
     }
 
-    .signup-form {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .signup-form label {
-      display: grid;
-      gap: 6px;
-      font-size: .72rem;
-      font-weight: 950;
-      text-transform: uppercase;
-    }
-
-    .signup-form label.wide,
-    .signup-form .signup-submit,
-    .signup-status {
-      grid-column: 1 / -1;
-    }
-
-    .signup-form input,
-    .signup-form select,
-    .signup-form textarea {
-      width: 100%;
-      min-height: 48px;
-      border: 3px solid var(--line);
-      border-radius: 0;
-      padding: 10px 12px;
-      background: var(--paper);
-      color: var(--ink);
-      font: inherit;
-      font-weight: 750;
-    }
-
-    .signup-form textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
-
-    .signup-submit {
-      cursor: pointer;
-    }
-
-    .signup-submit:disabled {
-      cursor: wait;
-      opacity: .66;
-    }
-
-    .signup-status {
-      min-height: 24px;
-      margin: 0;
-      color: var(--muted);
-      font-weight: 850;
-    }
-
-    .signup-status[data-tone="success"] {
-      color: #16733a;
-    }
-
-    .signup-status[data-tone="error"] {
-      color: var(--red);
-    }
-
     .gallery-grid {
       display: grid;
       grid-template-columns: 1.15fr .85fr;
@@ -863,15 +800,8 @@
         width: 100%;
       }
 
-      .event-summary,
-      .signup-form {
+      .event-summary {
         grid-template-columns: 1fr;
-      }
-
-      .signup-form label.wide,
-      .signup-form .signup-submit,
-      .signup-status {
-        grid-column: auto;
       }
     }
   </style>
@@ -991,7 +921,7 @@
         <div class="signup-panel">
           <p class="section-kicker">First Event Open</p>
           <h2>Sign Up For Kids Class</h2>
-          <p>Reserve your child's interest for the six-week Sunday program. Coach Ken will follow up with confirmation and payment instructions.</p>
+          <p>Text Kev directly with the signup information below to reserve your child's interest for the six-week Sunday program.</p>
 
           <div class="event-summary" aria-label="Kids Class details">
             <div><strong>Start Date</strong><span>June 21</span></div>
@@ -1003,53 +933,14 @@
           </div>
 
           <div class="payment-instructions" aria-label="Signup confirmation and payment instructions">
-            <h3>Confirm + Pay</h3>
-            <p>After submitting, text <a href="sms:+12679821186">267-982-1186</a> to confirm signup.</p>
+            <h3>Text Kev To Sign Up</h3>
+            <p>Include the parent or guardian name, child's name and age, email, and preferred class time.</p>
             <p>Send payment by Cash App <strong>$10for10ken</strong> or Apple Pay <strong>267-982-1186</strong>.</p>
             <div class="payment-actions">
-              <a href="sms:+12679821186">Text Coach Ken</a>
+              <a href="sms:+12679821186?&body=KIDS%20CLASS%20SIGNUP%0AParent%20%2F%20Guardian%3A%20%0AChild%27s%20Name%3A%20%0AChild%27s%20Age%3A%20%0AEmail%3A%20%0APreferred%20Class%3A%2011%3A15%20AM%20or%2012%3A30%20PM">Text Kev To Sign Up</a>
               <a href="tel:+12679821186">Call 267-982-1186</a>
             </div>
           </div>
-
-          <form class="signup-form" id="eventSignupForm">
-            <input type="hidden" name="event_name" value="Kids Class - June 21" />
-            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true" />
-            <label>
-              Parent / Guardian
-              <input name="parent_guardian_name" autocomplete="name" required />
-            </label>
-            <label>
-              Phone Number
-              <input name="phone" type="tel" autocomplete="tel" inputmode="tel" required />
-            </label>
-            <label>
-              Email
-              <input name="email" type="email" autocomplete="email" required />
-            </label>
-            <label>
-              Child's Name
-              <input name="child_name" required />
-            </label>
-            <label>
-              Child's Age
-              <input name="child_age" type="number" min="6" max="14" required />
-            </label>
-            <label>
-              Preferred Class
-              <select name="preferred_class" required>
-                <option value="">Choose a class</option>
-                <option>First Class - 11:15 AM to 12:15 PM</option>
-                <option>Second Class - 12:30 PM to 1:30 PM</option>
-              </select>
-            </label>
-            <label class="wide">
-              Questions or Notes
-              <textarea name="notes" placeholder="Anything Coach Ken should know?"></textarea>
-            </label>
-            <button class="button primary signup-submit" type="submit">Submit Kids Class Signup</button>
-            <p class="signup-status" id="signupStatus" role="status"></p>
-          </form>
         </div>
       </div>
     </section>
@@ -1142,42 +1033,5 @@
       <div>© 2026</div>
     </div>
   </footer>
-  <script>
-    const eventSignupForm = document.querySelector("#eventSignupForm");
-    const signupStatus = document.querySelector("#signupStatus");
-    const signupEndpoint = "https://zkyhhoxcrjkhywblzehr.supabase.co/functions/v1/ten-for-ten-event-signup";
-
-    eventSignupForm.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      const submitButton = eventSignupForm.querySelector('button[type="submit"]');
-      const formData = new FormData(eventSignupForm);
-      const payload = Object.fromEntries(formData.entries());
-      payload.source_page = window.location.href;
-
-      submitButton.disabled = true;
-      submitButton.textContent = "Sending...";
-      signupStatus.textContent = "Saving your signup...";
-      signupStatus.dataset.tone = "neutral";
-
-      try {
-        const response = await fetch(signupEndpoint, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
-        const data = await response.json().catch(() => ({}));
-        if (!response.ok || !data.ok) throw new Error(data.error || "Signup failed");
-        eventSignupForm.reset();
-        signupStatus.textContent = "Signup received. Text 267-982-1186 to confirm, then send payment by Cash App $10for10ken or Apple Pay 267-982-1186.";
-        signupStatus.dataset.tone = "success";
-      } catch (_error) {
-        signupStatus.textContent = "The signup could not be sent. Please message @10for10boxing on Instagram.";
-        signupStatus.dataset.tone = "error";
-      } finally {
-        submitButton.disabled = false;
-        submitButton.textContent = "Submit Kids Class Signup";
-      }
-    });
-  </script>
 </body>
 </html>
