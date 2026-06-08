@@ -555,6 +555,46 @@
       font-weight: 950;
     }
 
+    .payment-instructions {
+      display: grid;
+      gap: 12px;
+      margin: 0 0 22px;
+      border: 3px solid var(--line);
+      background: var(--gold);
+      padding: 16px;
+      box-shadow: 5px 5px 0 var(--line);
+    }
+
+    .payment-instructions h3 {
+      font-size: 1.8rem;
+    }
+
+    .payment-instructions p {
+      margin: 0;
+      color: #2b2518;
+      font-weight: 900;
+    }
+
+    .payment-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .payment-actions a {
+      min-height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid var(--line);
+      padding: 0 12px;
+      background: var(--white);
+      font-size: .78rem;
+      font-weight: 950;
+      text-transform: uppercase;
+      box-shadow: 3px 3px 0 var(--line);
+    }
+
     .signup-form {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -962,6 +1002,16 @@
             <div><strong>Second Class</strong><span>12:30 PM-1:30 PM</span></div>
           </div>
 
+          <div class="payment-instructions" aria-label="Signup confirmation and payment instructions">
+            <h3>Confirm + Pay</h3>
+            <p>After submitting, text <a href="sms:+12679821186">267-982-1186</a> to confirm signup.</p>
+            <p>Send payment by Cash App <strong>$10for10ken</strong> or Apple Pay <strong>267-982-1186</strong>.</p>
+            <div class="payment-actions">
+              <a href="sms:+12679821186">Text Coach Ken</a>
+              <a href="tel:+12679821186">Call 267-982-1186</a>
+            </div>
+          </div>
+
           <form class="signup-form" id="eventSignupForm">
             <input type="hidden" name="event_name" value="Kids Class - June 21" />
             <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true" />
@@ -1118,7 +1168,7 @@
         const data = await response.json().catch(() => ({}));
         if (!response.ok || !data.ok) throw new Error(data.error || "Signup failed");
         eventSignupForm.reset();
-        signupStatus.textContent = "Signup received. Coach Ken will follow up with the next step.";
+        signupStatus.textContent = "Signup received. Text 267-982-1186 to confirm, then send payment by Cash App $10for10ken or Apple Pay 267-982-1186.";
         signupStatus.dataset.tone = "success";
       } catch (_error) {
         signupStatus.textContent = "The signup could not be sent. Please message @10for10boxing on Instagram.";
