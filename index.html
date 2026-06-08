@@ -387,6 +387,11 @@
       color: #2b2518;
     }
 
+    .program-signup {
+      width: 100%;
+      margin-top: 18px;
+    }
+
     .details {
       display: grid;
       gap: 8px;
@@ -481,6 +486,136 @@
 
     .gallery {
       background: var(--panel);
+    }
+
+    .signup-section {
+      background: var(--paper);
+      border-top: 5px solid var(--line);
+      border-bottom: 5px solid var(--line);
+    }
+
+    .signup-grid {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .event-poster {
+      margin: 0;
+      border: 3px solid var(--line);
+      background: var(--charcoal);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .event-poster img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+    }
+
+    .signup-panel {
+      border: 3px solid var(--line);
+      background: var(--white);
+      padding: clamp(20px, 4vw, 34px);
+      box-shadow: 8px 8px 0 var(--red);
+    }
+
+    .signup-panel h2 {
+      font-size: clamp(3rem, 6vw, 5rem);
+    }
+
+    .event-summary {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin: 22px 0;
+    }
+
+    .event-summary div {
+      border: 3px solid var(--line);
+      background: var(--panel);
+      padding: 12px;
+    }
+
+    .event-summary strong,
+    .event-summary span {
+      display: block;
+    }
+
+    .event-summary strong {
+      color: var(--red);
+      font-size: .72rem;
+      text-transform: uppercase;
+    }
+
+    .event-summary span {
+      margin-top: 3px;
+      font-weight: 950;
+    }
+
+    .signup-form {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .signup-form label {
+      display: grid;
+      gap: 6px;
+      font-size: .72rem;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .signup-form label.wide,
+    .signup-form .signup-submit,
+    .signup-status {
+      grid-column: 1 / -1;
+    }
+
+    .signup-form input,
+    .signup-form select,
+    .signup-form textarea {
+      width: 100%;
+      min-height: 48px;
+      border: 3px solid var(--line);
+      border-radius: 0;
+      padding: 10px 12px;
+      background: var(--paper);
+      color: var(--ink);
+      font: inherit;
+      font-weight: 750;
+    }
+
+    .signup-form textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .signup-submit {
+      cursor: pointer;
+    }
+
+    .signup-submit:disabled {
+      cursor: wait;
+      opacity: .66;
+    }
+
+    .signup-status {
+      min-height: 24px;
+      margin: 0;
+      color: var(--muted);
+      font-weight: 850;
+    }
+
+    .signup-status[data-tone="success"] {
+      color: #16733a;
+    }
+
+    .signup-status[data-tone="error"] {
+      color: var(--red);
     }
 
     .gallery-grid {
@@ -614,6 +749,7 @@
       .hero-strip,
       .program-grid,
       .split-grid,
+      .signup-grid,
       .gallery-grid,
       .location-inner {
         grid-template-columns: 1fr;
@@ -686,6 +822,17 @@
       .button {
         width: 100%;
       }
+
+      .event-summary,
+      .signup-form {
+        grid-template-columns: 1fr;
+      }
+
+      .signup-form label.wide,
+      .signup-form .signup-submit,
+      .signup-status {
+        grid-column: auto;
+      }
     }
   </style>
 </head>
@@ -700,7 +847,7 @@
         <a href="#programs">Programs</a>
         <a href="#coach">Coach Ken</a>
         <a href="#location">Location</a>
-        <a class="nav-cta" href="#register">Register</a>
+        <a class="nav-cta" href="#signup">Sign Up</a>
       </nav>
     </div>
   </header>
@@ -712,7 +859,7 @@
         <h1>Real Boxing. <span>Real Results.</span></h1>
         <p class="hero-copy">Train with Coach Ken at 100 E Johnson St. Kids camp, women's classes, amateur fighter development, and conditioning built on real boxing fundamentals.</p>
         <div class="hero-actions">
-          <a class="button primary" href="#register">Register Now</a>
+          <a class="button primary" href="#signup">Sign Up</a>
           <a class="button" href="https://instagram.com/10for10boxing" target="_blank" rel="noreferrer">Instagram</a>
         </div>
       </div>
@@ -744,17 +891,19 @@
         <div class="program-grid">
           <article class="program-card featured">
             <div class="program-media">
-              <img src="kids-camp.jpg" alt="Kids training at 10 for 10 Boxing" loading="lazy">
-              <span class="tag">Active Camp</span>
+              <img src="kids-class-2026.jpg" alt="10 for 10 Boxing Kids Class flyer" loading="lazy">
+              <span class="tag">Sign Up Open</span>
             </div>
             <div class="program-body">
-              <h3>Kids Boxing Camp</h3>
-              <p>$10 for 10 sessions. The spring camp is underway, with remaining openings handled through Instagram registration.</p>
+              <h3>Kids Class</h3>
+              <p>A six-week Sunday boxing program focused on fundamentals, strength, life skills, leadership, and accountability.</p>
               <ul class="details">
-                <li><strong>Day</strong><span>Sundays</span></li>
-                <li><strong>Time</strong><span>11:15 AM - 12:15 PM</span></li>
-                <li><strong>Ages</strong><span>6-16</span></li>
+                <li><strong>Starts</strong><span>June 21</span></li>
+                <li><strong>Ages</strong><span>6-14</span></li>
+                <li><strong>Price</strong><span>$200</span></li>
+                <li><strong>Spots</strong><span>50 available</span></li>
               </ul>
+              <a class="button red program-signup" href="#signup">Sign Up</a>
             </div>
           </article>
 
@@ -789,6 +938,68 @@
               </ul>
             </div>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="signup-section" id="signup">
+      <div class="wrap signup-grid">
+        <figure class="event-poster">
+          <img src="kids-class-2026.jpg" alt="Kids Class at 10 for 10 Boxing, starting June 21">
+        </figure>
+
+        <div class="signup-panel">
+          <p class="section-kicker">First Event Open</p>
+          <h2>Sign Up For Kids Class</h2>
+          <p>Reserve your child's interest for the six-week Sunday program. Coach Ken will follow up with confirmation and payment instructions.</p>
+
+          <div class="event-summary" aria-label="Kids Class details">
+            <div><strong>Start Date</strong><span>June 21</span></div>
+            <div><strong>Location</strong><span>21 E Johnson Street</span></div>
+            <div><strong>Ages</strong><span>6-14</span></div>
+            <div><strong>Program</strong><span>6 Sundays / $200</span></div>
+            <div><strong>First Class</strong><span>11:15 AM-12:15 PM</span></div>
+            <div><strong>Second Class</strong><span>12:30 PM-1:30 PM</span></div>
+          </div>
+
+          <form class="signup-form" id="eventSignupForm">
+            <input type="hidden" name="event_name" value="Kids Class - June 21" />
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true" />
+            <label>
+              Parent / Guardian
+              <input name="parent_guardian_name" autocomplete="name" required />
+            </label>
+            <label>
+              Phone Number
+              <input name="phone" type="tel" autocomplete="tel" inputmode="tel" required />
+            </label>
+            <label>
+              Email
+              <input name="email" type="email" autocomplete="email" required />
+            </label>
+            <label>
+              Child's Name
+              <input name="child_name" required />
+            </label>
+            <label>
+              Child's Age
+              <input name="child_age" type="number" min="6" max="14" required />
+            </label>
+            <label>
+              Preferred Class
+              <select name="preferred_class" required>
+                <option value="">Choose a class</option>
+                <option>First Class - 11:15 AM to 12:15 PM</option>
+                <option>Second Class - 12:30 PM to 1:30 PM</option>
+              </select>
+            </label>
+            <label class="wide">
+              Questions or Notes
+              <textarea name="notes" placeholder="Anything Coach Ken should know?"></textarea>
+            </label>
+            <button class="button primary signup-submit" type="submit">Submit Kids Class Signup</button>
+            <p class="signup-status" id="signupStatus" role="status"></p>
+          </form>
         </div>
       </div>
     </section>
@@ -850,9 +1061,10 @@
       <div class="wrap">
         <div class="cta-box">
           <p class="section-kicker" style="color: var(--gold);">Register</p>
-          <h2>DM "BOX" To Get Started</h2>
-          <p>Kids camp spots and class questions are handled directly through Instagram. Send a message and Coach Ken will get you the next step.</p>
+          <h2>Ready For The First Bell?</h2>
+          <p>Sign up for the Kids Class online or message Coach Ken on Instagram with any questions before registering.</p>
           <div class="cta-actions">
+            <a class="button primary" href="#signup">Sign Up</a>
             <a class="button primary" href="https://instagram.com/10for10boxing" target="_blank" rel="noreferrer">Message Instagram</a>
             <a class="button" href="#location">Get Address</a>
           </div>
@@ -880,5 +1092,42 @@
       <div>© 2026</div>
     </div>
   </footer>
+  <script>
+    const eventSignupForm = document.querySelector("#eventSignupForm");
+    const signupStatus = document.querySelector("#signupStatus");
+    const signupEndpoint = "https://zkyhhoxcrjkhywblzehr.supabase.co/functions/v1/ten-for-ten-event-signup";
+
+    eventSignupForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const submitButton = eventSignupForm.querySelector('button[type="submit"]');
+      const formData = new FormData(eventSignupForm);
+      const payload = Object.fromEntries(formData.entries());
+      payload.source_page = window.location.href;
+
+      submitButton.disabled = true;
+      submitButton.textContent = "Sending...";
+      signupStatus.textContent = "Saving your signup...";
+      signupStatus.dataset.tone = "neutral";
+
+      try {
+        const response = await fetch(signupEndpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok || !data.ok) throw new Error(data.error || "Signup failed");
+        eventSignupForm.reset();
+        signupStatus.textContent = "Signup received. Coach Ken will follow up with the next step.";
+        signupStatus.dataset.tone = "success";
+      } catch (_error) {
+        signupStatus.textContent = "The signup could not be sent. Please message @10for10boxing on Instagram.";
+        signupStatus.dataset.tone = "error";
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "Submit Kids Class Signup";
+      }
+    });
+  </script>
 </body>
 </html>
