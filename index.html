@@ -392,6 +392,117 @@
       margin-top: 18px;
     }
 
+    .booking {
+      background: var(--gold);
+      border-top: 5px solid var(--line);
+      border-bottom: 5px solid var(--line);
+    }
+
+    .booking-grid {
+      display: grid;
+      grid-template-columns: .78fr 1.22fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .booking-intro {
+      color: var(--ink);
+      padding: 10px 0;
+    }
+
+    .booking-intro h2 {
+      font-size: clamp(3.2rem, 6vw, 5.3rem);
+    }
+
+    .booking-intro > p:not(.section-kicker) {
+      margin: 18px 0 0;
+      font-size: 1.04rem;
+      font-weight: 850;
+    }
+
+    .booking-points {
+      display: grid;
+      gap: 10px;
+      margin: 26px 0 0;
+    }
+
+    .booking-points div {
+      border-left: 4px solid var(--red);
+      padding: 3px 0 3px 12px;
+      font-size: .86rem;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .booking-form {
+      border: 3px solid var(--line);
+      background: var(--paper);
+      padding: clamp(20px, 4vw, 32px);
+      box-shadow: var(--shadow);
+    }
+
+    .booking-form h3 {
+      font-size: 2.15rem;
+      margin-bottom: 18px;
+    }
+
+    .booking-fields {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .booking-field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .booking-field.full {
+      grid-column: 1 / -1;
+    }
+
+    .booking-field label {
+      font-size: .74rem;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .booking-field input,
+    .booking-field select,
+    .booking-field textarea {
+      width: 100%;
+      min-height: 48px;
+      border: 3px solid var(--line);
+      border-radius: 0;
+      background: var(--white);
+      padding: 10px 12px;
+      color: var(--ink);
+      font: inherit;
+      font-weight: 700;
+    }
+
+    .booking-field textarea {
+      min-height: 94px;
+      resize: vertical;
+    }
+
+    .booking-form .button {
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    .booking-note,
+    .booking-status {
+      margin: 14px 0 0;
+      font-size: .8rem;
+      font-weight: 800;
+    }
+
+    .booking-status {
+      min-height: 1.2em;
+      color: var(--red);
+    }
+
     .details {
       display: grid;
       gap: 8px;
@@ -725,6 +836,7 @@
 
       .hero-strip,
       .program-grid,
+      .booking-grid,
       .split-grid,
       .signup-grid,
       .gallery-grid,
@@ -803,6 +915,10 @@
       .event-summary {
         grid-template-columns: 1fr;
       }
+
+      .booking-fields {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -815,9 +931,10 @@
       </a>
       <nav class="nav" aria-label="Main navigation">
         <a href="#programs">Programs</a>
+        <a href="#book">Book</a>
         <a href="#coach">Coach Ken</a>
         <a href="#location">Location</a>
-        <a class="nav-cta" href="#signup">Call or Text Coach Ken</a>
+        <a class="nav-cta" href="#book">Book a Session</a>
       </nav>
     </div>
   </header>
@@ -829,7 +946,7 @@
         <h1>Real Boxing. <span>Real Results.</span></h1>
         <p class="hero-copy">Train with Coach Ken at 100 E Johnson St. Kids classes, youth one-on-one sessions, women's classes, amateur fighter development, and conditioning built on real boxing fundamentals.</p>
         <div class="hero-actions">
-          <a class="button primary" href="#signup">Call or Text Coach Ken</a>
+          <a class="button primary" href="#book">Book a Session</a>
           <a class="button" href="https://instagram.com/10for10boxing" target="_blank" rel="noreferrer">Instagram</a>
         </div>
       </div>
@@ -909,6 +1026,61 @@
             </div>
           </article>
         </div>
+      </div>
+    </section>
+
+    <section class="booking" id="book" aria-labelledby="booking-heading">
+      <div class="wrap booking-grid">
+        <div class="booking-intro">
+          <p class="section-kicker">Appointments</p>
+          <h2 id="booking-heading">Book Your Round</h2>
+          <p>Pick the session you want and the time that works for you. Your request goes straight to Coach Ken for confirmation.</p>
+          <div class="booking-points" aria-label="Booking information">
+            <div>Private and youth training</div>
+            <div>Women&apos;s class and fighter consultations</div>
+            <div>Coach Ken confirms every appointment</div>
+          </div>
+        </div>
+
+        <form class="booking-form" id="booking-form">
+          <h3>Request an Appointment</h3>
+          <div class="booking-fields">
+            <div class="booking-field full">
+              <label for="booking-name">Your name</label>
+              <input id="booking-name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="booking-field">
+              <label for="booking-phone">Phone number</label>
+              <input id="booking-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required>
+            </div>
+            <div class="booking-field">
+              <label for="booking-service">What are you booking?</label>
+              <select id="booking-service" name="service" required>
+                <option value="">Choose a session</option>
+                <option>Private Boxing Training</option>
+                <option>Youth One-on-One Training</option>
+                <option>Women&apos;s Boxing Class</option>
+                <option>Fighter Development Consultation</option>
+                <option>Weight Loss &amp; Conditioning</option>
+              </select>
+            </div>
+            <div class="booking-field">
+              <label for="booking-date">Preferred date</label>
+              <input id="booking-date" name="date" type="date" required>
+            </div>
+            <div class="booking-field">
+              <label for="booking-time">Preferred time</label>
+              <input id="booking-time" name="time" type="time" required>
+            </div>
+            <div class="booking-field full">
+              <label for="booking-notes">Anything Coach Ken should know? <span>(optional)</span></label>
+              <textarea id="booking-notes" name="notes" maxlength="500" placeholder="Age, experience level, goals, or a second time that works for you."></textarea>
+            </div>
+          </div>
+          <button class="button red" type="submit">Send Booking Request</button>
+          <p class="booking-note">Submitting opens a text to Coach Ken. Your appointment is not confirmed until he replies.</p>
+          <p class="booking-status" id="booking-status" role="status" aria-live="polite"></p>
+        </form>
       </div>
     </section>
 
@@ -1003,9 +1175,9 @@
         <div class="cta-box">
           <p class="section-kicker" style="color: var(--gold);">Register</p>
           <h2>Ready For The First Bell?</h2>
-          <p>Sign up for the Kids Class online or message Coach Ken on Instagram with any questions before registering.</p>
+          <p>Book a training appointment or message Coach Ken on Instagram with any questions before registering.</p>
           <div class="cta-actions">
-            <a class="button primary" href="#signup">Call or Text Coach Ken</a>
+            <a class="button primary" href="#book">Book a Session</a>
             <a class="button primary" href="https://instagram.com/10for10boxing" target="_blank" rel="noreferrer">Message Instagram</a>
             <a class="button" href="#location">Get Address</a>
           </div>
@@ -1033,5 +1205,49 @@
       <div>© 2026</div>
     </div>
   </footer>
+  <script>
+    const bookingForm = document.getElementById("booking-form");
+    const bookingDate = document.getElementById("booking-date");
+    const bookingStatus = document.getElementById("booking-status");
+
+    if (bookingDate) {
+      const today = new Date();
+      const localToday = new Date(today.getTime() - today.getTimezoneOffset() * 60000)
+        .toISOString()
+        .split("T")[0];
+      bookingDate.min = localToday;
+    }
+
+    bookingForm?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!bookingForm.reportValidity()) return;
+
+      const data = new FormData(bookingForm);
+      const date = new Date(`${data.get("date")}T12:00:00`);
+      const preferredDate = new Intl.DateTimeFormat("en-US", {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      }).format(date);
+      const preferredTime = new Date(`1970-01-01T${data.get("time")}:00`).toLocaleTimeString([], {
+        hour: "numeric",
+        minute: "2-digit",
+      });
+      const note = String(data.get("notes") || "").trim();
+      const message = [
+        "10 FOR 10 BOOKING REQUEST",
+        `Name: ${data.get("name")}`,
+        `Phone: ${data.get("phone")}`,
+        `Session: ${data.get("service")}`,
+        `Preferred date: ${preferredDate}`,
+        `Preferred time: ${preferredTime}`,
+        note ? `Notes: ${note}` : "",
+      ].filter(Boolean).join("\n");
+
+      bookingStatus.textContent = "Opening your text to Coach Ken…";
+      window.location.href = `sms:+12679821186?&body=${encodeURIComponent(message)}`;
+    });
+  </script>
 </body>
 </html>
