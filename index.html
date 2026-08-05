@@ -785,23 +785,45 @@
 
     .location-inner {
       display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 18px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
       align-items: center;
+    }
+
+    .location-card {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
       border: 3px solid var(--line);
       background: var(--white);
-      padding: 20px;
+      padding: 22px;
       box-shadow: var(--shadow);
     }
 
-    .location h2 {
+    .location-card h2 {
       font-size: 2.5rem;
     }
 
-    .location p {
+    .location-card p {
       margin: 8px 0 0;
       color: var(--muted);
       font-weight: 850;
+    }
+
+    .location-hours {
+      margin-top: 20px !important;
+      border-top: 3px solid var(--line);
+      padding-top: 14px;
+      color: var(--ink) !important;
+      font-size: 1rem;
+      font-weight: 950 !important;
+      text-transform: uppercase;
+    }
+
+    .location-card .button {
+      margin-top: auto;
+      padding-top: 14px;
     }
 
     footer {
@@ -944,7 +966,7 @@
       <div class="wrap hero-content">
         <span class="eyebrow">Philadelphia Boxing Gym</span>
         <h1>Real Boxing. <span>Real Results.</span></h1>
-        <p class="hero-copy">Train with Coach Ken at 100 E Johnson St. Kids classes, youth one-on-one sessions, women's classes, amateur fighter development, and conditioning built on real boxing fundamentals.</p>
+        <p class="hero-copy">Train with Coach Ken at our Church Lane morning location or our 100 E Johnson afternoon and evening location. Kids classes, youth one-on-one sessions, women's classes, amateur fighter development, and conditioning built on real boxing fundamentals.</p>
         <div class="hero-actions">
           <a class="button primary" href="#book">Book a Session</a>
           <a class="button" href="https://instagram.com/10for10boxing" target="_blank" rel="noreferrer">Instagram</a>
@@ -1097,7 +1119,7 @@
 
           <div class="event-summary" aria-label="Kids Class details">
             <div><strong>Start Date</strong><span>June 21</span></div>
-            <div><strong>Location</strong><span>21 E Johnson Street</span></div>
+            <div><strong>Location</strong><span>100 E Johnson Street</span></div>
             <div><strong>Ages</strong><span>6-14</span></div>
             <div><strong>Program</strong><span>6 Sundays / $200</span></div>
             <div><strong>First Class</strong><span>11:15 AM-12:15 PM</span></div>
@@ -1187,12 +1209,18 @@
 
     <section class="location" id="location">
       <div class="wrap location-inner">
-        <div>
-          <p class="section-kicker">Location</p>
+        <article class="location-card">
+          <p class="section-kicker">Morning Training</p>
+          <h2>718 Church Lane</h2>
+          <p class="location-hours">Monday–Friday<br>6:00 AM–12:00 Noon</p>
+        </article>
+        <article class="location-card">
+          <p class="section-kicker">Afternoon &amp; Evening Training</p>
           <h2>100 E Johnson St</h2>
           <p>Philadelphia, PA 19144</p>
-        </div>
-        <a class="button red" href="https://www.google.com/maps/search/?api=1&query=100%20E%20Johnson%20St%20Philadelphia%20PA%2019144" target="_blank" rel="noreferrer">Open Map</a>
+          <p class="location-hours">Monday–Thursday<br>1:00 PM–8:00 PM</p>
+          <a class="button red" href="https://www.google.com/maps/search/?api=1&query=100%20E%20Johnson%20St%20Philadelphia%20PA%2019144" target="_blank" rel="noreferrer">Open Map</a>
+        </article>
       </div>
     </section>
   </main>
