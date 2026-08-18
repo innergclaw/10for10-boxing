@@ -137,9 +137,26 @@
       padding: 112px 0 72px;
       color: var(--white);
       background:
-        linear-gradient(90deg, rgba(8,8,8,.92) 0%, rgba(8,8,8,.78) 42%, rgba(8,8,8,.34) 100%),
-        url("women-class-1.jpg") center / cover no-repeat;
+        linear-gradient(90deg, rgba(8,8,8,.92) 0%, rgba(8,8,8,.78) 42%, rgba(8,8,8,.34) 100%);
       border-bottom: 5px solid var(--line);
+    }
+
+    .hero-video {
+      position: absolute;
+      z-index: 0;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .hero-shade {
+      position: absolute;
+      z-index: 1;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(8,8,8,.9) 0%, rgba(8,8,8,.7) 50%, rgba(8,8,8,.2) 100%);
+      pointer-events: none;
     }
 
     .hero::before {
@@ -150,6 +167,7 @@
         linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px),
         linear-gradient(180deg, rgba(255,255,255,.06) 1px, transparent 1px);
       background-size: 34px 34px;
+      z-index: 2;
       mix-blend-mode: overlay;
       pointer-events: none;
     }
@@ -160,13 +178,14 @@
       left: 0;
       right: 0;
       bottom: 0;
+      z-index: 3;
       height: 12px;
       background: linear-gradient(90deg, var(--red) 0 34%, var(--gold) 34% 67%, var(--blue) 67%);
     }
 
     .hero-content {
       position: relative;
-      z-index: 1;
+      z-index: 4;
       max-width: 860px;
     }
 
@@ -204,6 +223,10 @@
     h1 span {
       color: var(--gold);
       text-shadow: 4px 4px 0 var(--red);
+    }
+
+    .hero h1 {
+      max-width: 940px;
     }
 
     .hero-copy {
@@ -963,10 +986,14 @@
 
   <main id="top">
     <section class="hero" aria-label="10 for 10 Boxing">
+      <video class="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+        <source src="back-to-school-drive.mp4" type="video/mp4">
+      </video>
+      <div class="hero-shade" aria-hidden="true"></div>
       <div class="wrap hero-content">
-        <span class="eyebrow">Philadelphia Boxing Gym</span>
-        <h1>Real Boxing. <span>Real Results.</span></h1>
-        <p class="hero-copy">Train with Coach Ken at our Church Lane morning location or our 100 E Johnson afternoon and evening location. Kids classes, youth one-on-one sessions, women's classes, amateur fighter development, and conditioning built on real boxing fundamentals.</p>
+        <span class="eyebrow">10 for 10 Boxing Presents</span>
+        <h1>10FOR10 3RD ANNUAL <span>BACK TO SCHOOL DRIVE</span></h1>
+        <p class="hero-copy">Building confidence, community, and a strong start for the school year. Watch the drive in motion, then book your next round with Coach Ken.</p>
         <div class="hero-actions">
           <a class="button primary" href="#book">Book a Session</a>
           <a class="button" href="https://instagram.com/10for10boxing" target="_blank" rel="noreferrer">Instagram</a>
