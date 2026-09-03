@@ -141,6 +141,43 @@
       border-bottom: 5px solid var(--line);
     }
 
+    @keyframes hero-arrive {
+      0% { opacity: 0; transform: translateY(34px) scale(.94) rotate(-1deg); }
+      72% { opacity: 1; transform: translateY(-4px) scale(1.01) rotate(.2deg); }
+      100% { opacity: 1; transform: translateY(0) scale(1) rotate(0); }
+    }
+
+    @keyframes strip-slam {
+      0% { opacity: 0; transform: translateY(-24px) scale(.94); }
+      72% { opacity: 1; transform: translateY(5px) scale(1.015); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes reveal-up {
+      0% { opacity: 0; transform: translateY(44px) rotate(1.2deg) scale(.96); }
+      100% { opacity: 1; transform: translateY(0) rotate(0) scale(1); }
+    }
+
+    .hero-content {
+      animation: hero-arrive .82s cubic-bezier(.16, 1, .3, 1) both;
+    }
+
+    .hero-strip {
+      animation: strip-slam .9s .18s cubic-bezier(.16, 1, .3, 1) both;
+    }
+
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(44px) rotate(1.2deg) scale(.96);
+    }
+
+    .reveal-on-scroll.is-visible {
+      animation: reveal-up .72s cubic-bezier(.16, 1, .3, 1) both;
+    }
+
+    .reveal-on-scroll:nth-child(2) { animation-delay: .08s; }
+    .reveal-on-scroll:nth-child(3) { animation-delay: .16s; }
+
     .hero-video {
       position: absolute;
       z-index: 0;
@@ -264,6 +301,7 @@
       text-transform: uppercase;
       cursor: pointer;
       box-shadow: 3px 3px 0 var(--red);
+      transition: transform .2s cubic-bezier(.16, 1, .3, 1), background-color .2s ease;
     }
 
     .video-control:hover,
@@ -383,6 +421,7 @@
       background: var(--paper);
       box-shadow: 6px 6px 0 var(--line);
       overflow: hidden;
+      transition: transform .24s cubic-bezier(.16, 1, .3, 1), box-shadow .24s cubic-bezier(.16, 1, .3, 1);
     }
 
     .program-card.featured {
@@ -835,6 +874,33 @@
       box-shadow: 4px 4px 0 var(--line);
     }
 
+    @media (hover: hover) and (pointer: fine) {
+      .program-card:hover {
+        transform: translateY(-8px) rotate(-.6deg);
+        box-shadow: 10px 12px 0 var(--line);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-content,
+      .hero-strip {
+        animation: none;
+      }
+
+      .reveal-on-scroll,
+      .reveal-on-scroll.is-visible {
+        opacity: 1;
+        transform: none;
+        animation: none;
+      }
+
+      .program-card,
+      .video-control,
+      .button {
+        transition: none;
+      }
+    }
+
     .cta {
       padding: 80px 0;
       background:
@@ -1058,9 +1124,9 @@
       </video>
       <div class="hero-shade" aria-hidden="true"></div>
       <div class="wrap hero-content">
-        <span class="eyebrow">10 for 10 Boxing Presents</span>
-        <h1>10FOR10 3RD ANNUAL <span>BACK TO SCHOOL DRIVE</span></h1>
-        <p class="hero-copy">Building confidence, community, and a strong start for the school year. Watch the drive in motion, then book your next round with Coach Ken.</p>
+        <span class="eyebrow">Philadelphia Boxing Gym</span>
+        <h1>Real Boxing. <span>Real Results.</span></h1>
+        <p class="hero-copy">Train with Coach Ken at our Church Lane morning location or our 100 E Johnson afternoon and evening location. Kids classes, youth one-on-one sessions, women's classes, amateur fighter development, and conditioning built on real boxing fundamentals.</p>
         <div class="hero-actions">
           <a class="button primary" href="#book">Book a Session</a>
           <a class="button" href="https://instagram.com/10for10boxing" target="_blank" rel="noreferrer">Instagram</a>
@@ -1089,14 +1155,14 @@
 
     <section id="programs">
       <div class="wrap">
-        <div class="section-head">
+        <div class="section-head reveal-on-scroll">
           <p class="section-kicker">Programs</p>
           <h2>Pick Your Round</h2>
           <p>Every session is built around discipline, conditioning, confidence, and clean boxing fundamentals.</p>
         </div>
 
         <div class="program-grid">
-          <article class="program-card featured">
+          <article class="program-card featured reveal-on-scroll">
             <div class="program-media full-flyer">
               <img src="boxing-camp-2026.jpg" alt="10 for 10 Boxing Camp for Kids flyer" loading="lazy">
               <span class="tag">Registration Open</span>
@@ -1114,7 +1180,7 @@
             </div>
           </article>
 
-          <article class="program-card">
+          <article class="program-card reveal-on-scroll">
             <div class="program-media">
               <img src="women-class-1.jpg" alt="Women's boxing class at 10 for 10 Boxing" loading="lazy">
               <span class="tag">Wednesdays</span>
@@ -1130,7 +1196,7 @@
             </div>
           </article>
 
-          <article class="program-card">
+          <article class="program-card reveal-on-scroll">
             <div class="program-media">
               <img src="women-class-2.jpg" alt="Women's Sunday boxing class group photo" loading="lazy">
               <span class="tag">Sundays</span>
@@ -1151,7 +1217,7 @@
 
     <section class="booking" id="book" aria-labelledby="booking-heading">
       <div class="wrap booking-grid">
-        <div class="booking-intro">
+        <div class="booking-intro reveal-on-scroll">
           <p class="section-kicker">Appointments</p>
           <h2 id="booking-heading">Book Your Round</h2>
           <p>Pick the session you want and the time that works for you. Your request goes straight to Coach Ken for confirmation.</p>
@@ -1162,7 +1228,7 @@
           </div>
         </div>
 
-        <form class="booking-form" id="booking-form">
+        <form class="booking-form reveal-on-scroll" id="booking-form">
           <h3>Request an Appointment</h3>
           <div class="booking-fields">
             <div class="booking-field full">
@@ -1206,11 +1272,11 @@
 
     <section class="signup-section" id="signup">
       <div class="wrap signup-grid">
-        <figure class="event-poster">
+        <figure class="event-poster reveal-on-scroll">
           <img src="boxing-camp-2026.jpg" alt="Boxing Camp for Kids at 10 for 10 Boxing, starting September 20, 2026">
         </figure>
 
-        <div class="signup-panel">
+        <div class="signup-panel reveal-on-scroll">
           <p class="section-kicker">Registration Open</p>
           <h2>Boxing Camp For Kids</h2>
           <p>Call or text Coach Ken to register your child for the six-week Sunday camp. Full payment secures the spot.</p>
@@ -1272,28 +1338,28 @@
 
     <section class="split" id="coach">
       <div class="wrap split-grid">
-        <div class="coach-panel">
+        <div class="coach-panel reveal-on-scroll">
           <p class="section-kicker" style="color: var(--gold);">Coach Ken</p>
           <h2>Built For Work, Not Hype</h2>
           <p>10 for 10 Boxing is a local gym environment for people who want real coaching, real accountability, and a place where every round has a purpose.</p>
         </div>
 
         <div class="training-list">
-          <div class="training-item">
+          <div class="training-item reveal-on-scroll">
             <strong>01</strong>
             <div>
               <h3>Fighter Development</h3>
               <p>Amateur training for local and regional competition.</p>
             </div>
           </div>
-          <div class="training-item">
+          <div class="training-item reveal-on-scroll">
             <strong>02</strong>
             <div>
               <h3>Women's Boxing</h3>
               <p>Class options built for skill, confidence, and conditioning.</p>
             </div>
           </div>
-          <div class="training-item">
+          <div class="training-item reveal-on-scroll">
             <strong>03</strong>
             <div>
               <h3>Weight Loss</h3>
@@ -1306,16 +1372,16 @@
 
     <section class="gallery" aria-label="10 for 10 Boxing photos">
       <div class="wrap">
-        <div class="section-head">
+        <div class="section-head reveal-on-scroll">
           <p class="section-kicker">Inside The Gym</p>
           <h2>Show Up Ready</h2>
         </div>
         <div class="gallery-grid">
-          <figure class="photo-block">
+          <figure class="photo-block reveal-on-scroll">
             <img src="women-class-2.jpg" alt="10 for 10 Boxing class photo" loading="lazy">
             <figcaption class="photo-caption">All levels welcome. No egos, just work.</figcaption>
           </figure>
-          <figure class="photo-block small">
+          <figure class="photo-block small reveal-on-scroll">
             <img src="kids-camp.jpg" alt="Youth boxing training at 10 for 10 Boxing" loading="lazy">
             <figcaption class="photo-caption">Youth classes and one-on-one training now active.</figcaption>
           </figure>
@@ -1325,7 +1391,7 @@
 
     <section class="cta" id="register">
       <div class="wrap">
-        <div class="cta-box">
+        <div class="cta-box reveal-on-scroll">
           <p class="section-kicker" style="color: var(--gold);">Register</p>
           <h2>Ready For The First Bell?</h2>
           <p>Book a training appointment or message Coach Ken on Instagram with any questions before registering.</p>
@@ -1340,12 +1406,12 @@
 
     <section class="location" id="location">
       <div class="wrap location-inner">
-        <article class="location-card">
+        <article class="location-card reveal-on-scroll">
           <p class="section-kicker">Morning Training</p>
           <h2>718 Church Lane</h2>
           <p class="location-hours">Monday–Friday<br>6:00 AM–12:00 Noon</p>
         </article>
-        <article class="location-card">
+        <article class="location-card reveal-on-scroll">
           <p class="section-kicker">Afternoon &amp; Evening Training</p>
           <h2>100 E Johnson St</h2>
           <p>Philadelphia, PA 19144</p>
@@ -1365,6 +1431,24 @@
     </div>
   </footer>
   <script>
+    const revealItems = document.querySelectorAll(".reveal-on-scroll");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (reducedMotion) {
+      revealItems.forEach((item) => item.classList.add("is-visible"));
+    } else if ("IntersectionObserver" in window) {
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.16, rootMargin: "0px 0px -8% 0px" });
+      revealItems.forEach((item) => revealObserver.observe(item));
+    } else {
+      revealItems.forEach((item) => item.classList.add("is-visible"));
+    }
+
     const campaignVideo = document.getElementById("campaign-video");
     const videoPlayToggle = document.getElementById("video-play-toggle");
     const videoMuteToggle = document.getElementById("video-mute-toggle");
