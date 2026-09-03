@@ -404,6 +404,15 @@
       filter: saturate(.9) contrast(1.05);
     }
 
+    .program-media.full-flyer {
+      aspect-ratio: 3 / 4;
+      background: var(--white);
+    }
+
+    .program-media.full-flyer img {
+      object-fit: contain;
+    }
+
     .tag {
       position: absolute;
       left: 12px;
@@ -667,15 +676,16 @@
     .event-poster {
       margin: 0;
       border: 3px solid var(--line);
-      background: var(--charcoal);
+      background: var(--white);
       box-shadow: var(--shadow);
       overflow: hidden;
     }
 
     .event-poster img {
       width: 100%;
-      aspect-ratio: 1;
-      object-fit: cover;
+      height: auto;
+      aspect-ratio: auto;
+      object-fit: contain;
     }
 
     .signup-panel {
@@ -1059,7 +1069,7 @@
 
         <div class="program-grid">
           <article class="program-card featured">
-            <div class="program-media">
+            <div class="program-media full-flyer">
               <img src="boxing-camp-2026.jpg" alt="10 for 10 Boxing Camp for Kids flyer" loading="lazy">
               <span class="tag">Registration Open</span>
             </div>
