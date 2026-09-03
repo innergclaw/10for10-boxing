@@ -728,6 +728,34 @@
       font-weight: 950;
     }
 
+    .camp-registration-form {
+      margin: 26px 0;
+      border-top: 3px solid var(--line);
+      padding-top: 22px;
+    }
+
+    .camp-registration-form h3 {
+      font-size: 2rem;
+      margin-bottom: 18px;
+    }
+
+    .camp-registration-form .button {
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    .camp-registration-note,
+    .camp-registration-status {
+      margin: 12px 0 0;
+      font-size: .8rem;
+      font-weight: 800;
+    }
+
+    .camp-registration-status {
+      min-height: 1.2em;
+      color: var(--red);
+    }
+
     .payment-instructions {
       display: grid;
       gap: 12px;
@@ -1196,6 +1224,39 @@
             <div><strong>Availability</strong><span>20 spots</span></div>
           </div>
 
+          <form class="camp-registration-form" id="camp-registration-form">
+            <h3>Register By Text</h3>
+            <div class="booking-fields">
+              <div class="booking-field full">
+                <label for="camp-parent-name">Parent or guardian name</label>
+                <input id="camp-parent-name" name="parent_name" type="text" autocomplete="name" required>
+              </div>
+              <div class="booking-field">
+                <label for="camp-phone">Phone number</label>
+                <input id="camp-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required>
+              </div>
+              <div class="booking-field">
+                <label for="camp-email">Email</label>
+                <input id="camp-email" name="email" type="email" autocomplete="email" required>
+              </div>
+              <div class="booking-field">
+                <label for="camp-child-name">Child's name</label>
+                <input id="camp-child-name" name="child_name" type="text" required>
+              </div>
+              <div class="booking-field">
+                <label for="camp-child-age">Child's age</label>
+                <input id="camp-child-age" name="child_age" type="number" min="6" max="14" inputmode="numeric" required>
+              </div>
+              <div class="booking-field full">
+                <label for="camp-notes">Notes <span>(optional)</span></label>
+                <textarea id="camp-notes" name="notes" maxlength="500" placeholder="Share any experience, goals, or details Coach Ken should know."></textarea>
+              </div>
+            </div>
+            <button class="button red" type="submit">Text Coach To Register</button>
+            <p class="camp-registration-note">The form opens a text with your registration details. Full payment secures the spot.</p>
+            <p class="camp-registration-status" id="camp-registration-status" role="status" aria-live="polite"></p>
+          </form>
+
           <div class="payment-instructions" aria-label="Signup confirmation and payment instructions">
             <h3>Call or Text Coach Ken</h3>
             <p>Include the parent or guardian name, child's name and age, and email.</p>
@@ -1348,6 +1409,32 @@
     campaignVideo?.addEventListener("pause", syncVideoControls);
     campaignVideo?.addEventListener("volumechange", syncVideoControls);
     syncVideoControls();
+
+    const campRegistrationForm = document.getElementById("camp-registration-form");
+    const campRegistrationStatus = document.getElementById("camp-registration-status");
+
+    campRegistrationForm?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      if (!campRegistrationForm.reportValidity()) return;
+
+      const data = new FormData(campRegistrationForm);
+      const note = String(data.get("notes") || "").trim();
+      const message = [
+        "BOXING CAMP FOR KIDS REGISTRATION",
+        "Start: September 20, 2026",
+        `Parent / Guardian: ${data.get("parent_name")}`,
+        `Phone: ${data.get("phone")}`,
+        `Email: ${data.get("email")}`,
+        `Child's Name: ${data.get("child_name")}`,
+        `Child's Age: ${data.get("child_age")}`,
+        note ? `Notes: ${note}` : "",
+      ].filter(Boolean).join("\n");
+
+      if (campRegistrationStatus) {
+        campRegistrationStatus.textContent = "Opening your text to Coach Ken…";
+      }
+      window.location.href = `sms:+12679821186?&body=${encodeURIComponent(message)}`;
+    });
 
     const bookingForm = document.getElementById("booking-form");
     const bookingDate = document.getElementById("booking-date");
