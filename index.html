@@ -137,8 +137,26 @@
       padding: 112px 0 72px;
       color: var(--white);
       background:
-        linear-gradient(90deg, rgba(8,8,8,.92) 0%, rgba(8,8,8,.78) 42%, rgba(8,8,8,.34) 100%);
+        var(--ink);
       border-bottom: 5px solid var(--line);
+    }
+
+    .hero-photo {
+      position: absolute;
+      z-index: 0;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 22%;
+    }
+
+    .hero-photo-shade {
+      position: absolute;
+      z-index: 1;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(8,8,8,.88) 0%, rgba(8,8,8,.66) 44%, rgba(8,8,8,.18) 100%);
+      pointer-events: none;
     }
 
     @keyframes hero-arrive {
@@ -177,24 +195,6 @@
 
     .reveal-on-scroll:nth-child(2) { animation-delay: .08s; }
     .reveal-on-scroll:nth-child(3) { animation-delay: .16s; }
-
-    .hero-video {
-      position: absolute;
-      z-index: 0;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-    }
-
-    .hero-shade {
-      position: absolute;
-      z-index: 1;
-      inset: 0;
-      background: linear-gradient(90deg, rgba(8,8,8,.9) 0%, rgba(8,8,8,.7) 50%, rgba(8,8,8,.2) 100%);
-      pointer-events: none;
-    }
 
     .hero::before {
       content: "";
@@ -279,36 +279,6 @@
       gap: 12px;
       flex-wrap: wrap;
       margin-top: 28px;
-    }
-
-    .hero-controls {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 18px;
-    }
-
-    .video-control {
-      min-height: 42px;
-      border: 3px solid var(--white);
-      background: rgba(8, 8, 8, .8);
-      color: var(--white);
-      padding: 0 13px;
-      font: inherit;
-      font-size: .74rem;
-      font-weight: 950;
-      letter-spacing: .02em;
-      text-transform: uppercase;
-      cursor: pointer;
-      box-shadow: 3px 3px 0 var(--red);
-      transition: transform .2s cubic-bezier(.16, 1, .3, 1), background-color .2s ease;
-    }
-
-    .video-control:hover,
-    .video-control:focus-visible {
-      background: var(--red);
-      outline: 3px solid var(--gold);
-      outline-offset: 3px;
     }
 
     .button {
@@ -648,6 +618,20 @@
       box-shadow: 8px 8px 0 var(--gold);
     }
 
+    .coach-bio-image {
+      margin: -22px -22px 22px;
+      border-bottom: 3px solid var(--white);
+      background: var(--charcoal);
+      overflow: hidden;
+    }
+
+    .coach-bio-image img {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      object-position: center 22%;
+    }
+
     .coach-panel h2 {
       font-size: 3.4rem;
     }
@@ -895,7 +879,6 @@
       }
 
       .program-card,
-      .video-control,
       .button {
         transition: none;
       }
@@ -1119,10 +1102,8 @@
 
   <main id="top">
     <section class="hero" aria-label="10 for 10 Boxing">
-      <video class="hero-video" id="campaign-video" autoplay muted loop playsinline preload="auto" aria-label="10FOR10 3rd Annual Back to School Drive video">
-        <source src="back-to-school-drive.mp4" type="video/mp4">
-      </video>
-      <div class="hero-shade" aria-hidden="true"></div>
+      <img class="hero-photo" src="coach-ken.jpg" alt="Coach Ken at 10 for 10 Boxing">
+      <div class="hero-photo-shade" aria-hidden="true"></div>
       <div class="wrap hero-content">
         <span class="eyebrow">Philadelphia Boxing Gym</span>
         <h1>Real Boxing. <span>Real Results.</span></h1>
@@ -1130,10 +1111,6 @@
         <div class="hero-actions">
           <a class="button primary" href="#book">Book a Session</a>
           <a class="button" href="https://instagram.com/10for10boxing" target="_blank" rel="noreferrer">Instagram</a>
-        </div>
-        <div class="hero-controls" aria-label="Back to School Drive video controls">
-          <button class="video-control" id="video-play-toggle" type="button">Pause Video</button>
-          <button class="video-control" id="video-mute-toggle" type="button">Sound On</button>
         </div>
       </div>
     </section>
@@ -1339,8 +1316,11 @@
     <section class="split" id="coach">
       <div class="wrap split-grid">
         <div class="coach-panel reveal-on-scroll">
+          <div class="coach-bio-image">
+            <img src="coach-ken.jpg" alt="Coach Ken, owner and head coach at 10 for 10 Boxing" loading="lazy">
+          </div>
           <p class="section-kicker" style="color: var(--gold);">Coach Ken</p>
-          <h2>Built For Work, Not Hype</h2>
+          <h2>Coach Ken Bio</h2>
           <p>10 for 10 Boxing is a local gym environment for people who want real coaching, real accountability, and a place where every round has a purpose.</p>
         </div>
 
@@ -1448,51 +1428,6 @@
     } else {
       revealItems.forEach((item) => item.classList.add("is-visible"));
     }
-
-    const campaignVideo = document.getElementById("campaign-video");
-    const videoPlayToggle = document.getElementById("video-play-toggle");
-    const videoMuteToggle = document.getElementById("video-mute-toggle");
-
-    function syncVideoControls() {
-      if (!campaignVideo || !videoPlayToggle || !videoMuteToggle) return;
-      const isPlaying = !campaignVideo.paused && !campaignVideo.ended;
-      videoPlayToggle.textContent = isPlaying ? "Pause Video" : "Play Video";
-      videoPlayToggle.setAttribute("aria-label", isPlaying ? "Pause video" : "Play video");
-      videoMuteToggle.textContent = campaignVideo.muted ? "Sound On" : "Mute";
-      videoMuteToggle.setAttribute("aria-label", campaignVideo.muted ? "Turn sound on" : "Mute video");
-    }
-
-    videoPlayToggle?.addEventListener("click", async () => {
-      if (!campaignVideo) return;
-      if (campaignVideo.paused) {
-        try {
-          await campaignVideo.play();
-        } catch {
-          // Playback can be blocked until another direct visitor interaction.
-        }
-      } else {
-        campaignVideo.pause();
-      }
-      syncVideoControls();
-    });
-
-    videoMuteToggle?.addEventListener("click", async () => {
-      if (!campaignVideo) return;
-      campaignVideo.muted = !campaignVideo.muted;
-      if (!campaignVideo.paused) {
-        try {
-          await campaignVideo.play();
-        } catch {
-          // The visitor can still use the play control if their browser blocks playback.
-        }
-      }
-      syncVideoControls();
-    });
-
-    campaignVideo?.addEventListener("play", syncVideoControls);
-    campaignVideo?.addEventListener("pause", syncVideoControls);
-    campaignVideo?.addEventListener("volumechange", syncVideoControls);
-    syncVideoControls();
 
     const campRegistrationForm = document.getElementById("camp-registration-form");
     const campRegistrationStatus = document.getElementById("camp-registration-status");
