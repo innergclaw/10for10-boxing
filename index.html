@@ -1491,8 +1491,14 @@
     const revealItems = document.querySelectorAll(".reveal-on-scroll");
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+
     const splashScreen = document.getElementById("site-splash");
-    const hideSplash = () => splashScreen?.classList.add("is-hidden");
+    const hideSplash = () => {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      splashScreen?.classList.add("is-hidden");
+    };
     window.setTimeout(hideSplash, reducedMotion ? 0 : 1050);
 
     const scrollTopButton = document.getElementById("scroll-top");
