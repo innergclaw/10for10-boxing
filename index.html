@@ -173,7 +173,7 @@
 
     .splash-logo {
       width: min(68vw, 360px);
-      animation: splash-logo-in .72s cubic-bezier(.16, 1, .3, 1) both;
+      animation: splash-logo-spin .95s cubic-bezier(.16, 1, .3, 1) both;
     }
 
     .splash-logo img {
@@ -182,10 +182,10 @@
       height: auto;
     }
 
-    @keyframes splash-logo-in {
-      0% { opacity: 0; transform: scale(.76) rotate(-4deg); }
-      68% { opacity: 1; transform: scale(1.04) rotate(.4deg); }
-      100% { opacity: 1; transform: scale(1) rotate(0); }
+    @keyframes splash-logo-spin {
+      0% { opacity: 0; transform: scale(.76) rotate(0deg); }
+      58% { opacity: 1; transform: scale(1.04) rotate(220deg); }
+      100% { opacity: 1; transform: scale(1) rotate(360deg); }
     }
 
     @keyframes hero-arrive {
