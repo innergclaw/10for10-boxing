@@ -1791,7 +1791,7 @@
           </svg>
         </button>
       </div>
-      <p class="offer-lead" id="offer-lead">Share your name, email, and phone to get a discount on your next training payment.</p>
+      <p class="offer-lead" id="offer-lead">Sign up with your name, email, and phone to get 10% off your next session.</p>
       <form class="offer-form" id="offer-form" novalidate>
         <div class="offer-gotcha" aria-hidden="true">
           <label for="offer-company">Company</label>
@@ -1986,7 +1986,7 @@
     }
 
     function savedDiscountCodeLine() {
-      return readOfferState()?.state === "submitted" ? `Discount code: ${DISCOUNT_CODE}` : "";
+      return readOfferState()?.state === "submitted" ? `Discount code: ${DISCOUNT_CODE} (10% off)` : "";
     }
 
     function cleanOfferValue(value) {
@@ -2094,8 +2094,8 @@
       document.getElementById("offer-lead")?.setAttribute("hidden", "");
       if (offerSuccessCopy) {
         offerSuccessCopy.textContent = duplicate
-          ? "This email is already on the list. Your ten for ten code is below. Give it to Coach Ken when you book or pay."
-          : "You're in. Give this code to Coach Ken when you book a session or pay by Cash App or Apple Pay.";
+          ? "This email is already on the list. Save this code for 10% off your next session."
+          : "Save this code for 10% off your next session.";
       }
       offerDialog?.setAttribute("aria-labelledby", "offer-title");
       offerDialog?.setAttribute("aria-describedby", "offer-success-copy");
