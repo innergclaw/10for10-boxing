@@ -1165,6 +1165,285 @@
         grid-template-columns: 1fr;
       }
     }
+
+    html.offer-open,
+    html.offer-open body {
+      overflow: hidden;
+    }
+
+    .offer-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      display: grid;
+      place-items: center;
+      padding: 16px;
+    }
+
+    .offer-modal[hidden] {
+      display: none;
+    }
+
+    .offer-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(8, 8, 8, .78);
+      opacity: 0;
+      transition: opacity .28s ease;
+    }
+
+    .offer-dialog {
+      position: relative;
+      width: min(440px, 100%);
+      max-height: min(92dvh, 760px);
+      overflow: auto;
+      overscroll-behavior: contain;
+      border: 3px solid var(--line);
+      background: var(--paper);
+      color: var(--ink);
+      box-shadow: 10px 10px 0 var(--red);
+      padding: 28px 22px 22px;
+      opacity: 0;
+      transform: translateY(28px) scale(.96);
+      transition: opacity .34s cubic-bezier(.16, 1, .3, 1), transform .34s cubic-bezier(.16, 1, .3, 1);
+      scrollbar-color: var(--red) var(--paper);
+    }
+
+    .offer-modal.is-open .offer-backdrop {
+      opacity: 1;
+    }
+
+    .offer-modal.is-open .offer-dialog {
+      opacity: 1;
+      transform: none;
+    }
+
+    .offer-stripe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 12px;
+      background: linear-gradient(90deg, var(--red) 0 34%, var(--gold) 34% 67%, var(--blue) 67%);
+    }
+
+    .offer-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .offer-close {
+      flex: none;
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      margin-top: 6px;
+      border: 3px solid var(--line);
+      background: var(--white);
+      color: var(--ink);
+      box-shadow: 3px 3px 0 var(--line);
+      cursor: pointer;
+    }
+
+    .offer-close:hover {
+      background: var(--gold);
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 var(--line);
+    }
+
+    .offer-close svg {
+      width: 16px;
+      height: 16px;
+      display: block;
+    }
+
+    .offer-dialog h2 {
+      max-width: 12ch;
+      margin: 4px 0 0;
+      font-size: clamp(2.6rem, 8vw, 3.6rem);
+      text-wrap: balance;
+    }
+
+    .offer-lead,
+    .offer-note,
+    .offer-field-error,
+    .offer-status {
+      margin: 0;
+      font-weight: 800;
+    }
+
+    .offer-lead {
+      margin-top: 12px;
+      color: var(--ink);
+      font-size: 1rem;
+      max-width: 38ch;
+    }
+
+    .offer-form,
+    .offer-success {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .offer-form[hidden],
+    .offer-success[hidden] {
+      display: none;
+    }
+
+    .offer-field {
+      display: grid;
+      gap: 6px;
+    }
+
+    .offer-field label {
+      font-size: .74rem;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .offer-field input {
+      width: 100%;
+      min-height: 48px;
+      border: 3px solid var(--line);
+      border-radius: 0;
+      background: var(--white);
+      padding: 10px 12px;
+      color: var(--ink);
+      font: inherit;
+      font-size: 1rem;
+      font-weight: 700;
+      caret-color: var(--red);
+    }
+
+    .offer-field input::placeholder {
+      color: #5c5348;
+      font-weight: 700;
+    }
+
+    .offer-field input[aria-invalid="true"] {
+      border-color: #8f1016;
+      background: #fff6f4;
+    }
+
+    .offer-dialog ::selection {
+      background: var(--gold);
+      color: var(--ink);
+    }
+
+    .offer-field-error {
+      min-height: 0;
+      color: #8f1016;
+      font-size: .78rem;
+    }
+
+    .offer-field-error:empty,
+    .offer-status:empty {
+      display: none;
+    }
+
+    .offer-status {
+      color: #8f1016;
+      font-size: .84rem;
+    }
+
+    .offer-status[data-tone="success"] {
+      color: #0f5c32;
+    }
+
+    .offer-note {
+      color: #3f3a34;
+      font-size: .78rem;
+    }
+
+    .offer-dialog .button {
+      width: 100%;
+      margin-top: 4px;
+      cursor: pointer;
+    }
+
+    .offer-dialog .button:disabled {
+      cursor: wait;
+      opacity: .72;
+    }
+
+    .offer-dialog .button:focus-visible,
+    .offer-close:focus-visible,
+    .offer-field input:focus-visible {
+      outline: 3px solid var(--blue);
+      outline-offset: 3px;
+    }
+
+    .offer-gotcha {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+
+    .offer-code {
+      display: grid;
+      gap: 4px;
+      border: 3px solid var(--line);
+      background: var(--gold);
+      padding: 16px 14px 14px;
+      box-shadow: 5px 5px 0 var(--line);
+      text-align: center;
+    }
+
+    .offer-sr {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .offer-code strong {
+      font-family: Anton, Impact, sans-serif;
+      font-size: clamp(3.4rem, 14vw, 5.2rem);
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: .04em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    #offer-lead[hidden] {
+      display: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .offer-backdrop,
+      .offer-dialog,
+      .offer-close {
+        transition: none;
+      }
+
+      .offer-dialog {
+        transform: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .offer-modal {
+        padding: 20px;
+        align-items: center;
+      }
+
+      .offer-dialog {
+        width: 100%;
+        max-height: 92dvh;
+        padding: 26px 16px 16px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1500,6 +1779,54 @@
     </div>
   </footer>
   <button class="scroll-top" id="scroll-top" type="button" aria-label="Scroll to top" title="Scroll to top">↑</button>
+  <div class="offer-modal" id="offer-modal" hidden>
+    <div class="offer-backdrop" data-offer-dismiss></div>
+    <div class="offer-dialog" role="dialog" aria-modal="true" aria-labelledby="offer-title" aria-describedby="offer-lead">
+      <div class="offer-stripe" aria-hidden="true"></div>
+      <div class="offer-head">
+        <h2 id="offer-title">Ten for Ten</h2>
+        <button class="offer-close" type="button" data-offer-dismiss aria-label="Close discount offer">
+          <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+            <path d="M3 3l10 10M13 3L3 13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"/>
+          </svg>
+        </button>
+      </div>
+      <p class="offer-lead" id="offer-lead">Sign up with your name, email, and phone to get 10% off your next session.</p>
+      <form class="offer-form" id="offer-form" novalidate>
+        <div class="offer-gotcha" aria-hidden="true">
+          <label for="offer-company">Company</label>
+          <input id="offer-company" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
+        </div>
+        <div class="offer-field">
+          <label for="offer-name">Name</label>
+          <input id="offer-name" name="name" type="text" autocomplete="name" maxlength="80" required>
+          <p class="offer-field-error" id="offer-name-error"></p>
+        </div>
+        <div class="offer-field">
+          <label for="offer-email">Email</label>
+          <input id="offer-email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="320" required>
+          <p class="offer-field-error" id="offer-email-error"></p>
+        </div>
+        <div class="offer-field">
+          <label for="offer-phone">Phone number</label>
+          <input id="offer-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="40" required>
+          <p class="offer-field-error" id="offer-phone-error"></p>
+        </div>
+        <p class="offer-status" id="offer-status" role="status" aria-live="polite"></p>
+        <button class="button red" id="offer-submit" type="submit">Get my code</button>
+        <p class="offer-note">Give the code to Coach Ken when you book a session or pay by Cash App or Apple Pay. One signup per email.</p>
+      </form>
+      <div class="offer-success" id="offer-success" hidden>
+        <div class="offer-code">
+          <strong id="offer-code"><span class="offer-sr">Discount code </span>10410</strong>
+        </div>
+        <p class="offer-lead" id="offer-success-copy"></p>
+        <p class="offer-status" id="offer-copy-status" role="status" aria-live="polite"></p>
+        <button class="button primary" id="offer-copy" type="button">Copy code</button>
+        <a class="button" id="offer-book" href="#book">Book a session</a>
+      </div>
+    </div>
+  </div>
   <script>
     const revealItems = document.querySelectorAll(".reveal-on-scroll");
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1511,6 +1838,7 @@
     const hideSplash = () => {
       window.scrollTo({ top: 0, left: 0, behavior: "auto" });
       splashScreen?.classList.add("is-hidden");
+      scheduleDiscountOffer();
     };
     window.setTimeout(hideSplash, reducedMotion ? 0 : 1050);
 
@@ -1553,12 +1881,13 @@
         `Child's Name: ${data.get("child_name")}`,
         `Child's Age: ${data.get("child_age")}`,
         note ? `Notes: ${note}` : "",
+        savedDiscountCodeLine(),
       ].filter(Boolean).join("\n");
 
       if (campRegistrationStatus) {
         campRegistrationStatus.textContent = "Opening your text to Coach Ken…";
       }
-      window.location.href = `sms:+12679821186?&body=${encodeURIComponent(message)}`;
+      openCoachText(message);
     });
 
     const bookingForm = document.getElementById("booking-form");
@@ -1598,10 +1927,351 @@
         `Preferred date: ${preferredDate}`,
         `Preferred time: ${preferredTime}`,
         note ? `Notes: ${note}` : "",
+        savedDiscountCodeLine(),
       ].filter(Boolean).join("\n");
 
       bookingStatus.textContent = "Opening your text to Coach Ken…";
+      openCoachText(message);
+    });
+
+    function openCoachText(message) {
       window.location.href = `sms:+12679821186?&body=${encodeURIComponent(message)}`;
+    }
+
+    // Discount signup storage.
+    // Reuses the existing 10 for 10 Boxing Supabase project from the Kids Class signup.
+    // DISCOUNT_SUPABASE_ANON_KEY is the public publishable key. supabase-js accepts that
+    // same value as the anon key, and this fetch sends it as apikey and Authorization.
+    // Never put a service_role key or an sb_secret_ key here.
+    const DISCOUNT_SUPABASE_URL = "https://zkyhhoxcrjkhywblzehr.supabase.co";
+    const DISCOUNT_SUPABASE_ANON_KEY = "sb_publishable_bdi3BexAKWDBaUIh40hJ_A_8CNVdnM_";
+    const DISCOUNT_CODE = "10410";
+    const DISCOUNT_STORAGE_KEY = "10for10-discount-offer-v1";
+
+    const offerModal = document.getElementById("offer-modal");
+    const offerDialog = offerModal?.querySelector(".offer-dialog");
+    const offerForm = document.getElementById("offer-form");
+    const offerSuccess = document.getElementById("offer-success");
+    const offerStatus = document.getElementById("offer-status");
+    const offerCopyStatus = document.getElementById("offer-copy-status");
+    const offerSubmit = document.getElementById("offer-submit");
+    const offerCopy = document.getElementById("offer-copy");
+    const offerBook = document.getElementById("offer-book");
+    const offerSuccessCopy = document.getElementById("offer-success-copy");
+    const offerFields = {
+      name: document.getElementById("offer-name"),
+      email: document.getElementById("offer-email"),
+      phone: document.getElementById("offer-phone"),
+    };
+    const offerErrors = {
+      name: document.getElementById("offer-name-error"),
+      email: document.getElementById("offer-email-error"),
+      phone: document.getElementById("offer-phone-error"),
+    };
+    let offerReturnFocus = null;
+
+    function readOfferState() {
+      try {
+        return JSON.parse(localStorage.getItem(DISCOUNT_STORAGE_KEY) || "null");
+      } catch (_error) {
+        return null;
+      }
+    }
+
+    function writeOfferState(state) {
+      try {
+        localStorage.setItem(DISCOUNT_STORAGE_KEY, JSON.stringify({ state, at: new Date().toISOString() }));
+      } catch (_error) {
+        // Private browsing can block storage. The dialog still works for this visit.
+      }
+    }
+
+    function savedDiscountCodeLine() {
+      return readOfferState()?.state === "submitted" ? `Discount code: ${DISCOUNT_CODE} (10% off)` : "";
+    }
+
+    function cleanOfferValue(value) {
+      return String(value ?? "").replace(/\s+/g, " ").trim();
+    }
+
+    function isServiceRoleKey(key) {
+      try {
+        const part = String(key).split(".")[1];
+        if (!part) return false;
+        const json = atob(part.replace(/-/g, "+").replace(/_/g, "/"));
+        return JSON.parse(json).role === "service_role";
+      } catch (_error) {
+        return false;
+      }
+    }
+
+    function discountStorageReady() {
+      const url = DISCOUNT_SUPABASE_URL;
+      const key = DISCOUNT_SUPABASE_ANON_KEY;
+      const publishable = key.startsWith("sb_publishable_");
+      const secret = key.startsWith("sb_secret_") || isServiceRoleKey(key);
+      return url.startsWith("https://")
+        && url.includes(".supabase.co")
+        && url !== "SUPABASE_URL"
+        && Boolean(key)
+        && key !== "SUPABASE_ANON_KEY"
+        && !key.includes("PASTE")
+        && !secret
+        && (publishable || key.split(".").length === 3);
+    }
+
+    function validateOffer(raw) {
+      const name = cleanOfferValue(raw.name);
+      const email = cleanOfferValue(raw.email).toLowerCase();
+      const phone = cleanOfferValue(raw.phone);
+      const phoneDigits = phone.replace(/\D/g, "");
+      const errors = {};
+      if (name.length < 2 || name.length > 80 || !/\p{L}/u.test(name)) {
+        errors.name = "Enter a name with at least 2 letters.";
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 320) {
+        errors.email = "Enter a valid email address.";
+      }
+      if (phone.length > 40 || phoneDigits.length < 10 || phoneDigits.length > 15) {
+        errors.phone = "Enter a phone number with 10 to 15 digits.";
+      }
+      return { name, email, phone, errors };
+    }
+
+    function showOfferErrors(errors) {
+      Object.entries(offerFields).forEach(([key, input]) => {
+        const message = errors[key] || "";
+        const errorNode = offerErrors[key];
+        if (errorNode) errorNode.textContent = message;
+        if (!input) return;
+        if (message) {
+          input.setAttribute("aria-invalid", "true");
+          input.setAttribute("aria-describedby", errorNode?.id || "");
+        } else {
+          input.removeAttribute("aria-invalid");
+          input.removeAttribute("aria-describedby");
+        }
+      });
+    }
+
+    function offerFocusable() {
+      if (!offerDialog) return [];
+      return [...offerDialog.querySelectorAll("a, button, input, textarea, select")].filter((node) => {
+        if (node.disabled || node.tabIndex < 0) return false;
+        return node.offsetParent !== null;
+      });
+    }
+
+    function openOffer() {
+      if (!offerModal || !offerModal.hidden) return;
+      if (readOfferState()?.state) return;
+      offerReturnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      offerModal.hidden = false;
+      document.documentElement.classList.add("offer-open");
+      if (reducedMotion) {
+        offerModal.classList.add("is-open");
+      } else {
+        window.requestAnimationFrame(() => offerModal.classList.add("is-open"));
+      }
+      window.setTimeout(() => offerFields.name?.focus(), reducedMotion ? 0 : 40);
+    }
+
+    function closeOffer(state) {
+      if (!offerModal || offerModal.hidden) return;
+      if (state) writeOfferState(state);
+      offerModal.classList.remove("is-open");
+      const finish = () => {
+        offerModal.hidden = true;
+        document.documentElement.classList.remove("offer-open");
+        offerReturnFocus?.focus?.();
+      };
+      if (reducedMotion) {
+        finish();
+        return;
+      }
+      window.setTimeout(finish, 220);
+    }
+
+    function showOfferSuccess(duplicate) {
+      if (offerForm) offerForm.hidden = true;
+      if (offerSuccess) offerSuccess.hidden = false;
+      document.getElementById("offer-lead")?.setAttribute("hidden", "");
+      if (offerSuccessCopy) {
+        offerSuccessCopy.textContent = duplicate
+          ? "This email is already on the list. Save this code for 10% off your next session."
+          : "Save this code for 10% off your next session.";
+      }
+      offerDialog?.setAttribute("aria-labelledby", "offer-title");
+      offerDialog?.setAttribute("aria-describedby", "offer-success-copy");
+      writeOfferState("submitted");
+      window.setTimeout(() => offerCopy?.focus(), 20);
+    }
+
+    function scheduleDiscountOffer() {
+      const wait = reducedMotion ? 200 : 1400;
+      window.setTimeout(() => {
+        const active = document.activeElement;
+        const typing = active && active.matches && active.matches("input, textarea, select");
+        if (typing) {
+          window.setTimeout(openOffer, 5000);
+          return;
+        }
+        openOffer();
+      }, wait);
+    }
+
+    async function copyDiscountCode() {
+      const done = () => {
+        if (offerCopy) offerCopy.textContent = "Copied";
+        if (offerCopyStatus) {
+          offerCopyStatus.dataset.tone = "success";
+          offerCopyStatus.textContent = "Code copied.";
+        }
+        window.setTimeout(() => {
+          if (offerCopy) offerCopy.textContent = "Copy code";
+        }, 1800);
+      };
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(DISCOUNT_CODE);
+          done();
+          return;
+        }
+        const area = document.createElement("textarea");
+        area.value = DISCOUNT_CODE;
+        area.setAttribute("readonly", "");
+        area.style.position = "fixed";
+        area.style.left = "-9999px";
+        document.body.appendChild(area);
+        area.select();
+        const ok = document.execCommand("copy");
+        area.remove();
+        if (!ok) throw new Error("copy failed");
+        done();
+      } catch (_error) {
+        if (offerCopyStatus) {
+          offerCopyStatus.dataset.tone = "";
+          offerCopyStatus.textContent = "Select 10410 and copy it manually.";
+        }
+      }
+    }
+
+    offerModal?.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      if (target.closest("[data-offer-dismiss]")) closeOffer(readOfferState()?.state === "submitted" ? "submitted" : "dismissed");
+    });
+
+    offerBook?.addEventListener("click", () => {
+      closeOffer("submitted");
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (!offerModal || offerModal.hidden) return;
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeOffer(readOfferState()?.state === "submitted" ? "submitted" : "dismissed");
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const items = offerFocusable();
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+
+    offerCopy?.addEventListener("click", () => {
+      copyDiscountCode();
+    });
+
+    offerForm?.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!offerForm || !offerSubmit) return;
+      const raw = new FormData(offerForm);
+      if (cleanOfferValue(raw.get("_gotcha"))) {
+        showOfferSuccess(false);
+        return;
+      }
+      const { name, email, phone, errors } = validateOffer({
+        name: raw.get("name"),
+        email: raw.get("email"),
+        phone: raw.get("phone"),
+      });
+      showOfferErrors(errors);
+      if (offerStatus) {
+        offerStatus.dataset.tone = "";
+        offerStatus.textContent = "";
+      }
+      const firstInvalid = Object.keys(errors)[0];
+      if (firstInvalid) {
+        offerFields[firstInvalid]?.focus();
+        return;
+      }
+      if (!discountStorageReady()) {
+        if (offerStatus) {
+          offerStatus.textContent = "We could not save this signup yet. Text Coach Ken at 267-982-1186 and mention ten for ten.";
+        }
+        return;
+      }
+
+      offerSubmit.disabled = true;
+      offerSubmit.textContent = "Saving";
+      try {
+        const response = await fetch(`${DISCOUNT_SUPABASE_URL}/rest/v1/discount_signups`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            apikey: DISCOUNT_SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${DISCOUNT_SUPABASE_ANON_KEY}`,
+            Prefer: "return=minimal",
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            phone,
+            source_page: window.location.href.slice(0, 500),
+          }),
+        });
+        if (response.ok) {
+          showOfferSuccess(false);
+          return;
+        }
+        const data = await response.json().catch(() => ({}));
+        if (response.status === 409 || data.code === "23505") {
+          showOfferSuccess(true);
+          return;
+        }
+        if (offerStatus) {
+          offerStatus.textContent = response.status === 401 || response.status === 403
+            ? "Signup storage rejected the request. Text Coach Ken at 267-982-1186 and mention ten for ten."
+            : "We could not save your signup. Check your connection and try again, or text Coach Ken at 267-982-1186.";
+        }
+      } catch (_error) {
+        if (offerStatus) {
+          offerStatus.textContent = "We could not reach the signup list. Check your connection and try again.";
+        }
+      } finally {
+        if (!offerForm.hidden) {
+          offerSubmit.disabled = false;
+          offerSubmit.textContent = "Get my code";
+        }
+      }
+    });
+
+    Object.values(offerFields).forEach((input) => {
+      input?.addEventListener("input", () => {
+        if (input.getAttribute("aria-invalid") !== "true") return;
+        input.removeAttribute("aria-invalid");
+        const errorNode = offerErrors[input.id.replace("offer-", "")];
+        if (errorNode) errorNode.textContent = "";
+      });
     });
   </script>
 </body>
