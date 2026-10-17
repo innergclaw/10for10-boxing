@@ -1940,10 +1940,11 @@
 
     // Discount signup storage.
     // Reuses the existing 10 for 10 Boxing Supabase project from the Kids Class signup.
-    // SUPABASE_ANON_KEY is a placeholder: the publishable anon key was never stored in this repo.
-    // Replace that placeholder before signups can save. Never put a service_role key here.
+    // DISCOUNT_SUPABASE_ANON_KEY is the public publishable key. supabase-js accepts that
+    // same value as the anon key, and this fetch sends it as apikey and Authorization.
+    // Never put a service_role key or an sb_secret_ key here.
     const DISCOUNT_SUPABASE_URL = "https://zkyhhoxcrjkhywblzehr.supabase.co";
-    const DISCOUNT_SUPABASE_ANON_KEY = "SUPABASE_ANON_KEY";
+    const DISCOUNT_SUPABASE_ANON_KEY = "sb_publishable_bdi3BexAKWDBaUIh40hJ_A_8CNVdnM_";
     const DISCOUNT_CODE = "10410";
     const DISCOUNT_STORAGE_KEY = "10for10-discount-offer-v1";
 
@@ -2007,13 +2008,16 @@
     function discountStorageReady() {
       const url = DISCOUNT_SUPABASE_URL;
       const key = DISCOUNT_SUPABASE_ANON_KEY;
+      const publishable = key.startsWith("sb_publishable_");
+      const secret = key.startsWith("sb_secret_") || isServiceRoleKey(key);
       return url.startsWith("https://")
         && url.includes(".supabase.co")
         && url !== "SUPABASE_URL"
-        && key
+        && Boolean(key)
         && key !== "SUPABASE_ANON_KEY"
         && !key.includes("PASTE")
-        && !isServiceRoleKey(key);
+        && !secret
+        && (publishable || key.split(".").length === 3);
     }
 
     function validateOffer(raw) {
