@@ -1537,10 +1537,10 @@
             <button class="button red" type="submit" id="ci-submit">Send to Coach Ken</button>
             <p class="camp-inquiry-status" id="ci-status" role="status" aria-live="polite"></p>
             <div class="camp-inquiry-sms" id="ci-sms" hidden>
-              <p>Text did not open? Tap below or text Coach Ken at <a href="sms:+12679821182">267-982-1182</a>.</p>
-              <a class="button" id="ci-sms-link" href="sms:+12679821182">Text Coach Ken</a>
+              <p>Text did not open? Tap below or text Coach Ken at <a href="sms:+12679821186">267-982-1186</a>.</p>
+              <a class="button" id="ci-sms-link" href="sms:+12679821186">Text Coach Ken</a>
             </div>
-            <p class="camp-registration-note">Sending opens a text to Coach Ken at 267-982-1182 with your details filled in.</p>
+            <p class="camp-registration-note">Sending opens a text to Coach Ken at 267-982-1186 with your details filled in.</p>
           </form>
         </div>
       </div>
@@ -2247,7 +2247,7 @@
       if (!form) return;
       const status = document.getElementById("ci-status");
       const submit = document.getElementById("ci-submit");
-      const CAMP_SMS_NUMBER = "+12679821182";
+      const CAMP_SMS_NUMBER = "+12679821186";
       const smsWrap = document.getElementById("ci-sms");
       const smsLink = document.getElementById("ci-sms-link");
       const say = (tone, text) => { status.dataset.tone = tone; status.textContent = text; };
