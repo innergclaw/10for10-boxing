@@ -1444,6 +1444,26 @@
         padding: 26px 16px 16px;
       }
     }
+    .camp-top {
+      background: var(--paper);
+      border-bottom: 5px solid var(--line);
+      padding: clamp(28px, 5vw, 56px) 0;
+    }
+    .camp-top-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 26px;
+      align-items: start;
+    }
+    .camp-top .event-poster img { display: block; max-width: 100%; }
+    .camp-top h2 { font-size: clamp(2.4rem, 6vw, 4.4rem); }
+    .camp-inquiry-form .camp-inquiry-status { min-height: 1.2em; margin: 12px 0 0; font-weight: 900; }
+    .camp-inquiry-status[data-tone="success"] { color: #137a2f; }
+    .camp-inquiry-status[data-tone="error"] { color: var(--red); }
+    .camp-inquiry-form [aria-invalid="true"] { border-color: var(--red); outline: 2px solid var(--red); }
+    @media (max-width: 900px) {
+      .camp-top-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -1467,6 +1487,57 @@
   </header>
 
   <main id="top">
+    <section class="camp-top" id="kids-camp" aria-labelledby="kids-camp-heading">
+      <div class="wrap camp-top-grid">
+        <figure class="event-poster">
+          <img src="kids-camp-nov-2026.jpg" width="1000" height="1500" alt="Kids Boxing Camp, ages 5 to 14, starts November 15th, every Sunday 12:30 PM to 1:30 PM, 6 week program, $200, 100 E Johnson St">
+        </figure>
+        <div class="signup-panel">
+          <p class="section-kicker">Now Enrolling</p>
+          <h2 id="kids-camp-heading">Kids Boxing Camp</h2>
+          <p>A 6 week Sunday camp for boxers ages 5 to 14 with Coach Ken.</p>
+          <div class="event-summary" aria-label="Kids Boxing Camp details">
+            <div><strong>Starts</strong><span>November 15th</span></div>
+            <div><strong>Ages</strong><span>5 to 14</span></div>
+            <div><strong>When</strong><span>Every Sunday, 12:30 PM to 1:30 PM</span></div>
+            <div><strong>Program</strong><span>6 weeks / $200</span></div>
+            <div><strong>Location</strong><span>100 E Johnson St</span></div>
+          </div>
+
+          <form class="camp-registration-form camp-inquiry-form" id="camp-inquiry-form" novalidate>
+            <h3>Contact Ken</h3>
+            <div class="booking-fields">
+              <div class="booking-field full">
+                <label for="ci-parent">Parent name</label>
+                <input id="ci-parent" name="parent_name" type="text" autocomplete="name" maxlength="80" required>
+              </div>
+              <div class="booking-field">
+                <label for="ci-email">Email</label>
+                <input id="ci-email" name="email" type="email" autocomplete="email" maxlength="320" required>
+              </div>
+              <div class="booking-field">
+                <label for="ci-phone">Phone</label>
+                <input id="ci-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="40" required>
+              </div>
+              <div class="booking-field">
+                <label for="ci-child">Child's name</label>
+                <input id="ci-child" name="child_name" type="text" maxlength="80" required>
+              </div>
+              <div class="booking-field">
+                <label for="ci-age">Child's age (5 to 14)</label>
+                <input id="ci-age" name="child_age" type="number" min="5" max="14" step="1" inputmode="numeric" required>
+              </div>
+              <div class="booking-field full">
+                <label for="ci-message">Message <span>(optional)</span></label>
+                <textarea id="ci-message" name="message" maxlength="1000"></textarea>
+              </div>
+            </div>
+            <button class="button red" type="submit" id="ci-submit">Send to Coach Ken</button>
+            <p class="camp-inquiry-status" id="ci-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
     <section class="hero" aria-label="10 for 10 Boxing">
       <div class="wrap hero-content">
         <div class="hero-logo" aria-label="10 for 10 Boxing logo">
@@ -2273,6 +2344,65 @@
         if (errorNode) errorNode.textContent = "";
       });
     });
+    (() => {
+      const form = document.getElementById("camp-inquiry-form");
+      if (!form) return;
+      const status = document.getElementById("ci-status");
+      const submit = document.getElementById("ci-submit");
+      const say = (tone, text) => { status.dataset.tone = tone; status.textContent = text; };
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        form.querySelectorAll("[aria-invalid]").forEach((el) => el.removeAttribute("aria-invalid"));
+        const v = (id) => document.getElementById(id).value.trim();
+        const data = {
+          parent_name: v("ci-parent"),
+          email: v("ci-email").toLowerCase(),
+          phone: v("ci-phone"),
+          child_name: v("ci-child"),
+          child_age: Number(v("ci-age")),
+          message: v("ci-message") || null,
+          source_page: window.location.href.slice(0, 500),
+        };
+        const bad = [];
+        if (data.parent_name.length < 2) bad.push(["ci-parent", "parent name"]);
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) bad.push(["ci-email", "a valid email"]);
+        const digits = data.phone.replace(/\D/g, "").length;
+        if (digits < 10 || digits > 15) bad.push(["ci-phone", "a phone number with area code"]);
+        if (!data.child_name) bad.push(["ci-child", "child's name"]);
+        if (!Number.isInteger(data.child_age) || data.child_age < 5 || data.child_age > 14) bad.push(["ci-age", "child's age between 5 and 14"]);
+        if (bad.length) {
+          bad.forEach(([id]) => document.getElementById(id).setAttribute("aria-invalid", "true"));
+          document.getElementById(bad[0][0]).focus();
+          say("error", "Please add " + bad.map((b) => b[1]).join(", ") + ".");
+          return;
+        }
+        submit.disabled = true;
+        submit.textContent = "Sending";
+        try {
+          const response = await fetch(`${DISCOUNT_SUPABASE_URL}/rest/v1/camp_inquiries`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              apikey: DISCOUNT_SUPABASE_ANON_KEY,
+              Authorization: `Bearer ${DISCOUNT_SUPABASE_ANON_KEY}`,
+              Prefer: "return=minimal",
+            },
+            body: JSON.stringify(data),
+          });
+          if (response.ok) {
+            form.reset();
+            say("success", "Thank you. Coach Ken received your message and will be in touch.");
+          } else {
+            say("error", "We could not send your message. Please try again, or text Coach Ken at 267-982-1186.");
+          }
+        } catch (_error) {
+          say("error", "We could not reach the server. Check your connection, or text Coach Ken at 267-982-1186.");
+        } finally {
+          submit.disabled = false;
+          submit.textContent = "Send to Coach Ken";
+        }
+      });
+    })();
   </script>
 </body>
 </html>
