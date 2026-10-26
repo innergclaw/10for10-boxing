@@ -1458,6 +1458,8 @@
     .camp-top .event-poster img { display: block; max-width: 100%; }
     .camp-top h2 { font-size: clamp(2.4rem, 6vw, 4.4rem); }
     .camp-inquiry-form .camp-inquiry-status { min-height: 1.2em; margin: 12px 0 0; font-weight: 900; }
+    .camp-inquiry-sms { margin-top: 14px; }
+    .camp-inquiry-sms p { margin: 0 0 10px; font-weight: 800; }
     .camp-inquiry-status[data-tone="success"] { color: #137a2f; }
     .camp-inquiry-status[data-tone="error"] { color: var(--red); }
     .camp-inquiry-form [aria-invalid="true"] { border-color: var(--red); outline: 2px solid var(--red); }
@@ -1534,6 +1536,11 @@
             </div>
             <button class="button red" type="submit" id="ci-submit">Send to Coach Ken</button>
             <p class="camp-inquiry-status" id="ci-status" role="status" aria-live="polite"></p>
+            <div class="camp-inquiry-sms" id="ci-sms" hidden>
+              <p>Text did not open? Tap below or text Coach Ken at <a href="sms:+12679821182">267-982-1182</a>.</p>
+              <a class="button" id="ci-sms-link" href="sms:+12679821182">Text Coach Ken</a>
+            </div>
+            <p class="camp-registration-note">Sending opens a text to Coach Ken at 267-982-1182 with your details filled in.</p>
           </form>
         </div>
       </div>
@@ -2240,6 +2247,9 @@
       if (!form) return;
       const status = document.getElementById("ci-status");
       const submit = document.getElementById("ci-submit");
+      const CAMP_SMS_NUMBER = "+12679821182";
+      const smsWrap = document.getElementById("ci-sms");
+      const smsLink = document.getElementById("ci-sms-link");
       const say = (tone, text) => { status.dataset.tone = tone; status.textContent = text; };
       form.addEventListener("submit", async (event) => {
         event.preventDefault();
@@ -2270,7 +2280,7 @@
         submit.disabled = true;
         submit.textContent = "Sending";
         try {
-          const response = await fetch(`${DISCOUNT_SUPABASE_URL}/rest/v1/camp_inquiries`, {
+          await fetch(`${DISCOUNT_SUPABASE_URL}/rest/v1/camp_inquiries`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -2280,18 +2290,20 @@
             },
             body: JSON.stringify(data),
           });
-          if (response.ok) {
-            form.reset();
-            say("success", "Thank you. Coach Ken received your message and will be in touch.");
-          } else {
-            say("error", "We could not send your message. Please try again, or text Coach Ken at 267-982-1186.");
-          }
         } catch (_error) {
-          say("error", "We could not reach the server. Check your connection, or text Coach Ken at 267-982-1186.");
-        } finally {
-          submit.disabled = false;
-          submit.textContent = "Send to Coach Ken";
+          // Saving is best effort; the text to Coach Ken still opens below.
         }
+        const body = "Hi Coach Ken, I want to sign up for the Kids Boxing Camp (Nov 15). "
+          + `Parent: ${data.parent_name}. Child: ${data.child_name}, age ${data.child_age}. `
+          + `Phone: ${data.phone}. Email: ${data.email}.`
+          + (data.message ? ` Message: ${data.message}` : "");
+        const href = `sms:${CAMP_SMS_NUMBER}?&body=${encodeURIComponent(body)}`;
+        smsLink.href = href;
+        smsWrap.hidden = false;
+        say("success", "Your text to Coach Ken is ready ~ just hit send.");
+        submit.disabled = false;
+        submit.textContent = "Send to Coach Ken";
+        window.location.href = href;
       });
     })();
   </script>
